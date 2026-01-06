@@ -20,7 +20,7 @@ import * as Haptics from 'expo-haptics';
 export default function PDFScreen() {
   const router = useRouter();
   const { answers, personName, clearAnswers, getProgress } = useLegacy();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isGenerating, setIsGenerating] = useState(false);
   const [pdfGenerated, setPdfGenerated] = useState(false);
   const progress = getProgress();
@@ -199,20 +199,22 @@ export default function PDFScreen() {
       const hasAnswers = categoryQuestions.some(q => answers[q.id]);
       
       if (hasAnswers) {
+        const categoryName = language === 'es' ? category.name : t.categories[category.name as keyof typeof t.categories];
         htmlContent += `
           <div class="category-section">
             <div class="category-header">
-              <h2 class="category-title">${category.icon} ${category.name}</h2>
+              <h2 class="category-title">${category.icon} ${categoryName}</h2>
             </div>
         `;
         
         categoryQuestions.forEach(question => {
           const answer = answers[question.id];
           if (answer) {
+            const questionText = language === 'es' ? question.textEs : question.textEn;
             htmlContent += `
               <div class="question-block">
                 <div class="question-number">${t.questions.questionLabel.replace('{{number}}', String(question.id))}</div>
-                <div class="question-text">${question.text}</div>
+                <div class="question-text">${questionText}</div>
                 <div class="answer-text">${answer}</div>
               </div>
             `;

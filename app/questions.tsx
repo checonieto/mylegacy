@@ -44,9 +44,11 @@ export default function QuestionsScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const currentQuestion = QUESTIONS[currentQuestionIndex];
+  const questionText = language === 'es' ? currentQuestion.textEs : currentQuestion.textEn;
   const currentCategory = CATEGORIES.find(cat => 
     currentQuestionIndex >= cat.startIndex && currentQuestionIndex <= cat.endIndex
   );
+  const categoryName = currentCategory ? (language === 'es' ? currentCategory.name : t.categories[currentCategory.name as keyof typeof t.categories]) : '';
 
   useEffect(() => {
     const savedAnswer = answers[currentQuestion.id];
@@ -303,7 +305,7 @@ export default function QuestionsScreen() {
         >
           {currentCategory && (
             <View style={styles.categoryBadge}>
-              <Text style={styles.categoryText}>{currentCategory.icon} {currentCategory.name}</Text>
+              <Text style={styles.categoryText}>{currentCategory.icon} {categoryName}</Text>
             </View>
           )}
 
@@ -311,7 +313,7 @@ export default function QuestionsScreen() {
             <Text style={styles.questionNumber}>
               {t.questions.questionLabel.replace('{{number}}', String(currentQuestion.id))}
             </Text>
-            <Text style={styles.questionText}>{currentQuestion.text}</Text>
+            <Text style={styles.questionText}>{questionText}</Text>
           </View>
 
           <View style={styles.answerSection}>

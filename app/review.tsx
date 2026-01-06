@@ -21,7 +21,7 @@ import * as Haptics from 'expo-haptics';
 export default function ReviewScreen() {
   const router = useRouter();
   const { answers, photos, personName, saveAnswer, clearAnswers, getProgress } = useLegacy();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText] = useState('');
   const progress = getProgress();
@@ -136,12 +136,13 @@ export default function ReviewScreen() {
               <View key={category.name} style={styles.categorySection}>
                 <View style={styles.categoryHeader}>
                   <Text style={styles.categoryIcon}>{category.icon}</Text>
-                  <Text style={styles.categoryName}>{category.name}</Text>
+                  <Text style={styles.categoryName}>{language === 'es' ? category.name : t.categories[category.name as keyof typeof t.categories]}</Text>
                 </View>
 
                 {categoryQuestions.map(question => {
                   const answer = answers[question.id];
                   if (!answer && editingId !== question.id) return null;
+                  const questionText = language === 'es' ? question.textEs : question.textEn;
 
                   return (
                     <View key={question.id} style={styles.questionCard}>
@@ -159,7 +160,7 @@ export default function ReviewScreen() {
                         )}
                       </View>
                       
-                      <Text style={styles.questionText}>{question.text}</Text>
+                      <Text style={styles.questionText}>{questionText}</Text>
                       
                       {editingId === question.id ? (
                         <View style={styles.editSection}>
