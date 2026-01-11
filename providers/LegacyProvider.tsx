@@ -34,12 +34,28 @@ export const [LegacyProvider, useLegacy] = createContextHook<LegacyContextType>(
       ]);
       
       if (storedAnswers) {
-        setAnswers(JSON.parse(storedAnswers));
+        try {
+          const parsed = JSON.parse(storedAnswers);
+          if (parsed && typeof parsed === 'object') {
+            setAnswers(parsed);
+          }
+        } catch (e) {
+          console.error('Error parsing answers:', e);
+          await AsyncStorage.removeItem(STORAGE_KEY);
+        }
       }
       if (storedPhotos) {
-        setPhotos(JSON.parse(storedPhotos));
+        try {
+          const parsed = JSON.parse(storedPhotos);
+          if (parsed && typeof parsed === 'object') {
+            setPhotos(parsed);
+          }
+        } catch (e) {
+          console.error('Error parsing photos:', e);
+          await AsyncStorage.removeItem(PHOTOS_STORAGE_KEY);
+        }
       }
-      if (storedName) {
+      if (storedName && typeof storedName === 'string') {
         setPersonNameState(storedName);
       }
     } catch (error) {
