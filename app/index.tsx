@@ -119,8 +119,14 @@ export default function WelcomeScreen() {
       <View style={styles.slideContent}>
         <View style={styles.slideCard}>
           <Text style={styles.slideTitle}>{t.welcome.welcomeTitle}</Text>
-          <Text style={styles.slideText}>{t.welcome.welcomeText1}</Text>
-          <Text style={styles.slideText}>{t.welcome.welcomeText2}</Text>
+          <ScrollView 
+            style={styles.slideScrollView}
+            showsVerticalScrollIndicator={true}
+            nestedScrollEnabled={true}
+          >
+            <Text style={styles.slideText}>{t.welcome.welcomeText1}</Text>
+            <Text style={styles.slideText}>{t.welcome.welcomeText2}</Text>
+          </ScrollView>
         </View>
       </View>
     </View>
@@ -131,19 +137,25 @@ export default function WelcomeScreen() {
       <View style={styles.slideContent}>
         <View style={styles.slideCard}>
           <Text style={styles.slideTitle}>{t.welcome.whoCanFillTitle}</Text>
-          <Text style={styles.slideText}>{t.welcome.whoCanFillText}</Text>
-          <View style={styles.bulletPoint}>
-            <Text style={styles.bullet}>•</Text>
-            <Text style={styles.bulletText}>{t.welcome.bullet1}</Text>
-          </View>
-          <View style={styles.bulletPoint}>
-            <Text style={styles.bullet}>•</Text>
-            <Text style={styles.bulletText}>{t.welcome.bullet2}</Text>
-          </View>
-          <View style={styles.bulletPoint}>
-            <Text style={styles.bullet}>•</Text>
-            <Text style={styles.bulletText}>{t.welcome.bullet3}</Text>
-          </View>
+          <ScrollView 
+            style={styles.slideScrollView}
+            showsVerticalScrollIndicator={true}
+            nestedScrollEnabled={true}
+          >
+            <Text style={styles.slideText}>{t.welcome.whoCanFillText}</Text>
+            <View style={styles.bulletPoint}>
+              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.bulletText}>{t.welcome.bullet1}</Text>
+            </View>
+            <View style={styles.bulletPoint}>
+              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.bulletText}>{t.welcome.bullet2}</Text>
+            </View>
+            <View style={styles.bulletPoint}>
+              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.bulletText}>{t.welcome.bullet3}</Text>
+            </View>
+          </ScrollView>
         </View>
       </View>
     </View>
@@ -154,48 +166,54 @@ export default function WelcomeScreen() {
       <View style={styles.slideContent}>
         <View style={styles.slideCard}>
           <Text style={styles.slideTitle}>{t.welcome.howToUseTitle}</Text>
-          <View style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>1.</Text>
-            <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>{t.welcome.step1Title}</Text>
-              <Text style={styles.stepText}>{t.welcome.step1Text}</Text>
+          <ScrollView 
+            style={styles.slideScrollView}
+            showsVerticalScrollIndicator={true}
+            nestedScrollEnabled={true}
+          >
+            <View style={styles.stepContainer}>
+              <Text style={styles.stepNumber}>1.</Text>
+              <View style={styles.stepContent}>
+                <Text style={styles.stepTitle}>{t.welcome.step1Title}</Text>
+                <Text style={styles.stepText}>{t.welcome.step1Text}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>2.</Text>
-            <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>{t.welcome.step2Title}</Text>
-              <Text style={styles.stepText}>{t.welcome.step2Text}</Text>
+            <View style={styles.stepContainer}>
+              <Text style={styles.stepNumber}>2.</Text>
+              <View style={styles.stepContent}>
+                <Text style={styles.stepTitle}>{t.welcome.step2Title}</Text>
+                <Text style={styles.stepText}>{t.welcome.step2Text}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>3.</Text>
-            <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>{t.welcome.step3Title}</Text>
-              <Text style={styles.stepText}>{t.welcome.step3Text}</Text>
+            <View style={styles.stepContainer}>
+              <Text style={styles.stepNumber}>3.</Text>
+              <View style={styles.stepContent}>
+                <Text style={styles.stepTitle}>{t.welcome.step3Title}</Text>
+                <Text style={styles.stepText}>{t.welcome.step3Text}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>4.</Text>
-            <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>{t.welcome.step4Title}</Text>
-              <Text style={styles.stepText}>{t.welcome.step4Text}</Text>
+            <View style={styles.stepContainer}>
+              <Text style={styles.stepNumber}>4.</Text>
+              <View style={styles.stepContent}>
+                <Text style={styles.stepTitle}>{t.welcome.step4Title}</Text>
+                <Text style={styles.stepText}>{t.welcome.step4Text}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>5.</Text>
-            <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>{t.welcome.step5Title}</Text>
-              <Text style={styles.stepText}>{t.welcome.step5Text}</Text>
+            <View style={styles.stepContainer}>
+              <Text style={styles.stepNumber}>5.</Text>
+              <View style={styles.stepContent}>
+                <Text style={styles.stepTitle}>{t.welcome.step5Title}</Text>
+                <Text style={styles.stepText}>{t.welcome.step5Text}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>6.</Text>
-            <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>{t.welcome.step6Title}</Text>
-              <Text style={styles.stepText}>{t.welcome.step6Text}</Text>
+            <View style={styles.stepContainer}>
+              <Text style={styles.stepNumber}>6.</Text>
+              <View style={styles.stepContent}>
+                <Text style={styles.stepTitle}>{t.welcome.step6Title}</Text>
+                <Text style={styles.stepText}>{t.welcome.step6Text}</Text>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         </View>
       </View>
     </View>
@@ -419,6 +437,11 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderLeftWidth: 4,
     borderLeftColor: '#8B7355',
+    flex: 1,
+    maxHeight: '100%',
+  },
+  slideScrollView: {
+    flex: 1,
   },
   slideTitle: {
     fontSize: 20,
