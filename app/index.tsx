@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   SafeAreaView,
   TextInput,
+  Dimensions,
+  ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { BookOpen, Heart, Users } from 'lucide-react-native';
+import { BookOpen, ChevronRight, ChevronLeft } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLegacy } from '@/providers/LegacyProvider';
 import { useLanguage } from '@/providers/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
 export default function WelcomeScreen() {
   const router = useRouter();
   const { personName, setPersonName, getProgress } = useLegacy();
   const { t } = useLanguage();
-  const [inputName, setInputName] = React.useState('');
-  const [showNameInput, setShowNameInput] = React.useState(false);
+  const [inputName, setInputName] = useState('');
+  const [showNameInput, setShowNameInput] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
   const progress = getProgress();
-
-
 
   const handleStart = () => {
     if (!personName) {
@@ -39,6 +42,30 @@ export default function WelcomeScreen() {
       setShowNameInput(false);
       router.push('/questions' as any);
     }
+  };
+
+  const goToSlide = (index: number) => {
+    scrollViewRef.current?.scrollTo({ x: index * SCREEN_WIDTH, animated: true });
+    setCurrentSlide(index);
+  };
+
+  const handleNext = () => {
+    if (currentSlide < 2) {
+      goToSlide(currentSlide + 1);
+    } else {
+      handleStart();
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentSlide > 0) {
+      goToSlide(currentSlide - 1);
+    }
+  };
+
+  const handleScroll = (event: any) => {
+    const slideIndex = Math.round(event.nativeEvent.contentOffset.x / SCREEN_WIDTH);
+    setCurrentSlide(slideIndex);
   };
 
   if (showNameInput) {
@@ -87,6 +114,93 @@ export default function WelcomeScreen() {
     );
   }
 
+  const renderSlide1 = () => (
+    <View style={styles.slide}>
+      <View style={styles.slideContent}>
+        <View style={styles.slideCard}>
+          <Text style={styles.slideTitle}>{t.welcome.welcomeTitle}</Text>
+          <Text style={styles.slideText}>{t.welcome.welcomeText1}</Text>
+          <Text style={styles.slideText}>{t.welcome.welcomeText2}</Text>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderSlide2 = () => (
+    <View style={styles.slide}>
+      <View style={styles.slideContent}>
+        <View style={styles.slideCard}>
+          <Text style={styles.slideTitle}>{t.welcome.whoCanFillTitle}</Text>
+          <Text style={styles.slideText}>{t.welcome.whoCanFillText}</Text>
+          <View style={styles.bulletPoint}>
+            <Text style={styles.bullet}>•</Text>
+            <Text style={styles.bulletText}>{t.welcome.bullet1}</Text>
+          </View>
+          <View style={styles.bulletPoint}>
+            <Text style={styles.bullet}>•</Text>
+            <Text style={styles.bulletText}>{t.welcome.bullet2}</Text>
+          </View>
+          <View style={styles.bulletPoint}>
+            <Text style={styles.bullet}>•</Text>
+            <Text style={styles.bulletText}>{t.welcome.bullet3}</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderSlide3 = () => (
+    <View style={styles.slide}>
+      <View style={styles.slideContent}>
+        <View style={styles.slideCard}>
+          <Text style={styles.slideTitle}>{t.welcome.howToUseTitle}</Text>
+          <View style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>1.</Text>
+            <View style={styles.stepContent}>
+              <Text style={styles.stepTitle}>{t.welcome.step1Title}</Text>
+              <Text style={styles.stepText}>{t.welcome.step1Text}</Text>
+            </View>
+          </View>
+          <View style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>2.</Text>
+            <View style={styles.stepContent}>
+              <Text style={styles.stepTitle}>{t.welcome.step2Title}</Text>
+              <Text style={styles.stepText}>{t.welcome.step2Text}</Text>
+            </View>
+          </View>
+          <View style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>3.</Text>
+            <View style={styles.stepContent}>
+              <Text style={styles.stepTitle}>{t.welcome.step3Title}</Text>
+              <Text style={styles.stepText}>{t.welcome.step3Text}</Text>
+            </View>
+          </View>
+          <View style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>4.</Text>
+            <View style={styles.stepContent}>
+              <Text style={styles.stepTitle}>{t.welcome.step4Title}</Text>
+              <Text style={styles.stepText}>{t.welcome.step4Text}</Text>
+            </View>
+          </View>
+          <View style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>5.</Text>
+            <View style={styles.stepContent}>
+              <Text style={styles.stepTitle}>{t.welcome.step5Title}</Text>
+              <Text style={styles.stepText}>{t.welcome.step5Text}</Text>
+            </View>
+          </View>
+          <View style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>6.</Text>
+            <View style={styles.stepContent}>
+              <Text style={styles.stepTitle}>{t.welcome.step6Title}</Text>
+              <Text style={styles.stepText}>{t.welcome.step6Text}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
@@ -96,125 +210,83 @@ export default function WelcomeScreen() {
         <View style={styles.languageToggleContainer}>
           <LanguageToggle />
         </View>
-        
-        <ScrollView 
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
+
+        <View style={styles.header}>
+          <View style={styles.iconContainer}>
+            <BookOpen size={50} color="#6B5D4F" />
+          </View>
+          <Text style={styles.title}>{t.welcome.title}</Text>
+          <Text style={styles.subtitle}>{t.welcome.subtitle}</Text>
+        </View>
+
+        <View style={styles.carouselHeader}>
+          <Text style={styles.carouselTitle}>{t.welcome.carouselTitle}</Text>
+          <View style={styles.dotsContainer}>
+            {[0, 1, 2].map((index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => goToSlide(index)}
+                style={[
+                  styles.dot,
+                  currentSlide === index && styles.dotActive,
+                ]}
+              />
+            ))}
+          </View>
+        </View>
+
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={handleScroll}
+          style={styles.carousel}
+          contentContainerStyle={styles.carouselContent}
         >
-          <View style={styles.header}>
-            <View style={styles.iconContainer}>
-              <BookOpen size={60} color="#6B5D4F" />
-            </View>
-            <Text style={styles.title}>{t.welcome.title}</Text>
-            <Text style={styles.subtitle}>
-              {t.welcome.subtitle}
-            </Text>
+          {renderSlide1()}
+          {renderSlide2()}
+          {renderSlide3()}
+        </ScrollView>
+
+        <View style={styles.navigationContainer}>
+          <View style={styles.navButtonsRow}>
+            {currentSlide > 0 ? (
+              <TouchableOpacity
+                style={styles.navButton}
+                onPress={handlePrevious}
+                activeOpacity={0.7}
+              >
+                <ChevronLeft size={20} color="#6B5D4F" />
+                <Text style={styles.navButtonText}>{t.welcome.carouselPrevious}</Text>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.navButtonPlaceholder} />
+            )}
+
+            <TouchableOpacity
+              style={styles.skipButton}
+              onPress={handleStart}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.skipButtonText}>{t.welcome.carouselSkip}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={handleNext}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.navButtonText}>
+                {currentSlide === 2 ? t.welcome.carouselStart : t.welcome.carouselNext}
+              </Text>
+              <ChevronRight size={20} color="#6B5D4F" />
+            </TouchableOpacity>
           </View>
+        </View>
 
-          <View style={styles.introductionContainer}>
-            <View style={styles.introCard}>
-              <Text style={styles.introTitle}>{t.welcome.thanksTitle}</Text>
-              <Text style={styles.introText}>
-                {t.welcome.thanksText1}
-              </Text>
-              <Text style={styles.introText}>
-                {t.welcome.thanksText2}
-              </Text>
-            </View>
-
-            <View style={styles.introCard}>
-              <Text style={styles.introTitle}>{t.welcome.welcomeTitle}</Text>
-              <Text style={styles.introText}>
-                {t.welcome.welcomeText1}
-              </Text>
-              <Text style={styles.introText}>
-                {t.welcome.welcomeText2}
-              </Text>
-            </View>
-
-            <View style={styles.introCard}>
-              <Text style={styles.introTitle}>{t.welcome.whoCanFillTitle}</Text>
-              <Text style={styles.introText}>{t.welcome.whoCanFillText}</Text>
-              <View style={styles.bulletPoint}>
-                <Text style={styles.bullet}>•</Text>
-                <Text style={styles.bulletText}>{t.welcome.bullet1}</Text>
-              </View>
-              <View style={styles.bulletPoint}>
-                <Text style={styles.bullet}>•</Text>
-                <Text style={styles.bulletText}>{t.welcome.bullet2}</Text>
-              </View>
-              <View style={styles.bulletPoint}>
-                <Text style={styles.bullet}>•</Text>
-                <Text style={styles.bulletText}>{t.welcome.bullet3}</Text>
-              </View>
-            </View>
-
-            <View style={styles.introCard}>
-              <Text style={styles.introTitle}>{t.welcome.howToUseTitle}</Text>
-              <View style={styles.stepContainer}>
-                <Text style={styles.stepNumber}>1.</Text>
-                <View style={styles.stepContent}>
-                  <Text style={styles.stepTitle}>{t.welcome.step1Title}</Text>
-                  <Text style={styles.stepText}>{t.welcome.step1Text}</Text>
-                </View>
-              </View>
-              <View style={styles.stepContainer}>
-                <Text style={styles.stepNumber}>2.</Text>
-                <View style={styles.stepContent}>
-                  <Text style={styles.stepTitle}>{t.welcome.step2Title}</Text>
-                  <Text style={styles.stepText}>{t.welcome.step2Text}</Text>
-                </View>
-              </View>
-              <View style={styles.stepContainer}>
-                <Text style={styles.stepNumber}>3.</Text>
-                <View style={styles.stepContent}>
-                  <Text style={styles.stepTitle}>{t.welcome.step3Title}</Text>
-                  <Text style={styles.stepText}>{t.welcome.step3Text}</Text>
-                </View>
-              </View>
-              <View style={styles.stepContainer}>
-                <Text style={styles.stepNumber}>4.</Text>
-                <View style={styles.stepContent}>
-                  <Text style={styles.stepTitle}>{t.welcome.step4Title}</Text>
-                  <Text style={styles.stepText}>{t.welcome.step4Text}</Text>
-                </View>
-              </View>
-              <View style={styles.stepContainer}>
-                <Text style={styles.stepNumber}>5.</Text>
-                <View style={styles.stepContent}>
-                  <Text style={styles.stepTitle}>{t.welcome.step5Title}</Text>
-                  <Text style={styles.stepText}>{t.welcome.step5Text}</Text>
-                </View>
-              </View>
-              <View style={styles.stepContainer}>
-                <Text style={styles.stepNumber}>6.</Text>
-                <View style={styles.stepContent}>
-                  <Text style={styles.stepTitle}>{t.welcome.step6Title}</Text>
-                  <Text style={styles.stepText}>{t.welcome.step6Text}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.featuresContainer}>
-            <View style={styles.feature}>
-              <Heart size={32} color="#8B7355" />
-              <Text style={styles.featureTitle}>{t.welcome.feature1Title}</Text>
-              <Text style={styles.featureText}>
-                {t.welcome.feature1Text}
-              </Text>
-            </View>
-
-            <View style={styles.feature}>
-              <Users size={32} color="#8B7355" />
-              <Text style={styles.featureTitle}>{t.welcome.feature2Title}</Text>
-              <Text style={styles.featureText}>
-                {t.welcome.feature2Text}
-              </Text>
-            </View>
-          </View>
-
-          {progress.answered > 0 && (
+        {progress.answered > 0 && (
+          <View style={styles.progressSection}>
             <View style={styles.progressCard}>
               <Text style={styles.progressTitle}>{t.welcome.progressTitle}</Text>
               <View style={styles.progressBar}>
@@ -231,41 +303,22 @@ export default function WelcomeScreen() {
                   .replace('{{total}}', String(progress.total))}
               </Text>
             </View>
-          )}
-
-          <TouchableOpacity
-            style={styles.startButton}
-            onPress={handleStart}
-            activeOpacity={0.8}
-          >
-            <LinearGradient
-              colors={['#6B5D4F', '#8B7355']}
-              style={styles.buttonGradient}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-            >
-              <Text style={styles.startButtonText}>
-                {progress.answered > 0 ? t.welcome.continueButton : t.welcome.startButton}
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-
-          {progress.answered > 0 && (
             <TouchableOpacity
-              style={styles.secondaryButton}
-              onPress={() => router.push('/review' as any)}
+              style={styles.continueButton}
+              onPress={() => router.push('/questions' as any)}
               activeOpacity={0.8}
             >
-              <Text style={styles.secondaryButtonText}>{t.welcome.viewAnswersButton}</Text>
+              <LinearGradient
+                colors={['#6B5D4F', '#8B7355']}
+                style={styles.buttonGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Text style={styles.continueButtonText}>{t.welcome.continueButton}</Text>
+              </LinearGradient>
             </TouchableOpacity>
-          )}
-
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>
-              {t.welcome.footerQuote}
-            </Text>
           </View>
-        </ScrollView>
+        )}
       </LinearGradient>
     </SafeAreaView>
   );
@@ -285,23 +338,20 @@ const styles = StyleSheet.create({
     right: 16,
     zIndex: 10,
   },
-  scrollContent: {
-    flexGrow: 1,
-    paddingHorizontal: 24,
-    paddingVertical: 40,
-  },
   header: {
     alignItems: 'center',
-    marginBottom: 40,
+    paddingTop: 50,
+    paddingBottom: 16,
+    paddingHorizontal: 24,
   },
   iconContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     backgroundColor: '#F5F5F5',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -309,64 +359,96 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   title: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: 'bold' as const,
     color: '#4A4A4A',
-    marginBottom: 12,
+    marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 15,
     color: '#6B5D4F',
     textAlign: 'center',
-    lineHeight: 26,
+    lineHeight: 22,
+  },
+  carouselHeader: {
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  carouselTitle: {
+    fontSize: 16,
+    fontWeight: '600' as const,
+    color: '#8B7355',
+    marginBottom: 12,
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#CCCCCC',
+  },
+  dotActive: {
+    backgroundColor: '#6B5D4F',
+    width: 24,
+  },
+  carousel: {
+    flex: 1,
+  },
+  carouselContent: {
+    flexGrow: 1,
+  },
+  slide: {
+    width: SCREEN_WIDTH,
     paddingHorizontal: 20,
   },
-  introductionContainer: {
-    marginBottom: 32,
+  slideContent: {
+    flex: 1,
   },
-  introCard: {
+  slideCard: {
     backgroundColor: 'white',
-    borderRadius: 16,
+    borderRadius: 20,
     padding: 24,
-    marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
     borderLeftWidth: 4,
     borderLeftColor: '#8B7355',
   },
-  introTitle: {
+  slideTitle: {
     fontSize: 20,
     fontWeight: '700' as const,
     color: '#4A4A4A',
     marginBottom: 16,
     textAlign: 'center',
   },
-  introText: {
-    fontSize: 16,
+  slideText: {
+    fontSize: 15,
     color: '#666666',
-    lineHeight: 24,
+    lineHeight: 23,
     marginBottom: 12,
     textAlign: 'justify',
   },
   bulletPoint: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 8,
+    marginBottom: 10,
     paddingLeft: 8,
   },
   bullet: {
     fontSize: 16,
     color: '#8B7355',
     fontWeight: 'bold' as const,
-    marginRight: 8,
+    marginRight: 10,
     marginTop: 2,
   },
   bulletText: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#666666',
     lineHeight: 22,
     flex: 1,
@@ -374,64 +456,80 @@ const styles = StyleSheet.create({
   stepContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 16,
-    paddingLeft: 8,
+    marginBottom: 12,
   },
   stepNumber: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold' as const,
     color: '#8B7355',
-    marginRight: 12,
+    marginRight: 10,
     marginTop: 2,
-    minWidth: 20,
+    minWidth: 18,
   },
   stepContent: {
     flex: 1,
   },
   stepTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600' as const,
     color: '#4A4A4A',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   stepText: {
-    fontSize: 15,
+    fontSize: 13,
     color: '#666666',
-    lineHeight: 21,
+    lineHeight: 19,
   },
-  featuresContainer: {
-    marginBottom: 32,
+  navigationContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
   },
-  feature: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
+  navButtonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  navButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    backgroundColor: 'white',
+    borderRadius: 25,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.08,
     shadowRadius: 4,
     elevation: 2,
+    minWidth: 100,
+    justifyContent: 'center',
   },
-  featureTitle: {
-    fontSize: 20,
+  navButtonPlaceholder: {
+    width: 100,
+  },
+  navButtonText: {
+    fontSize: 15,
     fontWeight: '600' as const,
-    color: '#4A4A4A',
-    marginTop: 12,
-    marginBottom: 8,
-  },
-  featureText: {
-    fontSize: 16,
     color: '#6B5D4F',
-    textAlign: 'center',
-    lineHeight: 22,
+  },
+  skipButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  skipButtonText: {
+    fontSize: 15,
+    color: '#999999',
+    fontWeight: '500' as const,
+  },
+  progressSection: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   progressCard: {
     backgroundColor: 'white',
     borderRadius: 16,
-    padding: 20,
-    marginBottom: 24,
+    padding: 16,
+    marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -439,73 +537,45 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   progressTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600' as const,
     color: '#4A4A4A',
-    marginBottom: 12,
+    marginBottom: 10,
   },
   progressBar: {
-    height: 8,
+    height: 6,
     backgroundColor: '#E8E8E8',
-    borderRadius: 4,
+    borderRadius: 3,
     overflow: 'hidden',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   progressFill: {
     height: '100%',
     backgroundColor: '#8B7355',
-    borderRadius: 4,
+    borderRadius: 3,
   },
   progressText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#6B5D4F',
   },
-  startButton: {
-    marginBottom: 16,
-    borderRadius: 30,
+  continueButton: {
+    borderRadius: 25,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
   },
   buttonGradient: {
-    paddingVertical: 18,
-    paddingHorizontal: 32,
+    paddingVertical: 14,
+    paddingHorizontal: 28,
     alignItems: 'center',
   },
-  startButtonText: {
-    fontSize: 20,
+  continueButtonText: {
+    fontSize: 17,
     fontWeight: '600' as const,
     color: 'white',
-  },
-  secondaryButton: {
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 30,
-    borderWidth: 2,
-    borderColor: '#8B7355',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  secondaryButtonText: {
-    fontSize: 18,
-    fontWeight: '600' as const,
-    color: '#6B5D4F',
-  },
-  footer: {
-    marginTop: 32,
-    paddingTop: 24,
-    borderTopWidth: 1,
-    borderTopColor: '#CCCCCC',
-  },
-  footerText: {
-    fontSize: 16,
-    color: '#6B5D4F',
-    textAlign: 'center',
-    fontStyle: 'italic',
-    lineHeight: 24,
   },
   nameInputContainer: {
     flex: 1,
