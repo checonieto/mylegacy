@@ -25,6 +25,26 @@ export const [LegacyProvider, useLegacy] = createContextHook<LegacyContextType>(
   const [personName, setPersonNameState] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const safeJsonParse = (str: string | null): Record<number, string> | null => {
+    if (!str || typeof str !== 'string') return null;
+    if (str.trim() === '') return null;
+    try {
+      const firstChar = str.trim().charAt(0);
+      if (firstChar !== '{' && firstChar !== '[') {
+        console.log('Invalid JSON format, clearing data');
+        return null;
+      }
+      const parsed = JSON.parse(str);
+      if (parsed && typeof parsed === 'object') {
+        return parsed;
+      }
+      return null;
+    } catch (e) {
+      console.error('JSON parse error:', e);
+      return null;
+    }
+  };
+
   const loadData = useCallback(async () => {
     try {
       const [storedAnswers, storedPhotos, storedName] = await Promise.all([
@@ -33,29 +53,21 @@ export const [LegacyProvider, useLegacy] = createContextHook<LegacyContextType>(
         AsyncStorage.getItem(NAME_STORAGE_KEY)
       ]);
       
-      if (storedAnswers) {
-        try {
-          const parsed = JSON.parse(storedAnswers);
-          if (parsed && typeof parsed === 'object') {
-            setAnswers(parsed);
-          }
-        } catch (e) {
-          console.error('Error parsing answers:', e);
-          await AsyncStorage.removeItem(STORAGE_KEY);
-        }
+      const parsedAnswers = safeJsonParse(storedAnswers);
+      if (parsedAnswers) {
+        setAnswers(parsedAnswers);
+      } else if (storedAnswers) {
+        await AsyncStorage.removeItem(STORAGE_KEY);
       }
-      if (storedPhotos) {
-        try {
-          const parsed = JSON.parse(storedPhotos);
-          if (parsed && typeof parsed === 'object') {
-            setPhotos(parsed);
-          }
-        } catch (e) {
-          console.error('Error parsing photos:', e);
-          await AsyncStorage.removeItem(PHOTOS_STORAGE_KEY);
-        }
+
+      const parsedPhotos = safeJsonParse(storedPhotos);
+      if (parsedPhotos) {
+        setPhotos(parsedPhotos);
+      } else if (storedPhotos) {
+        await AsyncStorage.removeItem(PHOTOS_STORAGE_KEY);
       }
-      if (storedName && typeof storedName === 'string') {
+
+      if (storedName && typeof storedName === 'string' && storedName.trim() !== '') {
         setPersonNameState(storedName);
       }
     } catch (error) {
