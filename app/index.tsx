@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { BookOpen, ChevronRight, ChevronLeft } from 'lucide-react-native';
+import { BookOpen, ChevronRight, ChevronLeft, User } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLegacy } from '@/providers/LegacyProvider';
 import { useLanguage } from '@/providers/LanguageProvider';
@@ -233,6 +233,22 @@ export default function WelcomeScreen() {
           <View style={styles.iconContainer}>
             <BookOpen size={50} color="#6B5D4F" />
           </View>
+          
+          <View style={styles.elderlyIconsRow}>
+            <View style={styles.elderlyIconContainer}>
+              <View style={styles.elderlyIconBadge}>
+                <User size={28} color="#FFFFFF" strokeWidth={2.5} />
+              </View>
+              <View style={styles.elderlyGlasses} />
+            </View>
+            <View style={styles.elderlyIconContainer}>
+              <View style={[styles.elderlyIconBadge, styles.elderlyIconFemale]}>
+                <User size={28} color="#FFFFFF" strokeWidth={2.5} />
+              </View>
+              <View style={styles.elderlyHairBun} />
+            </View>
+          </View>
+          
           <Text style={styles.title}>{t.welcome.title}</Text>
           <Text style={styles.subtitle}>{t.welcome.subtitle}</Text>
         </View>
@@ -375,6 +391,53 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  elderlyIconsRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
+    marginBottom: 12,
+  },
+  elderlyIconContainer: {
+    position: 'relative',
+    alignItems: 'center',
+  },
+  elderlyIconBadge: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: '#7B8D9E',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  elderlyIconFemale: {
+    backgroundColor: '#B8907A',
+  },
+  elderlyGlasses: {
+    position: 'absolute',
+    top: 16,
+    width: 30,
+    height: 8,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#4A4A4A',
+    backgroundColor: 'transparent',
+  },
+  elderlyHairBun: {
+    position: 'absolute',
+    top: -4,
+    width: 18,
+    height: 12,
+    borderRadius: 9,
+    backgroundColor: '#E8E0D8',
+    borderWidth: 1,
+    borderColor: '#D0C8C0',
   },
   title: {
     fontSize: 26,
