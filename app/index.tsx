@@ -239,7 +239,11 @@ export default function WelcomeScreen() {
               <View style={styles.elderlyIconBadge}>
                 <User size={28} color="#FFFFFF" strokeWidth={2.5} />
               </View>
-              <View style={styles.elderlyGlasses} />
+              <View style={styles.elderlyGlassesContainer}>
+                <View style={styles.elderlyGlassesLens} />
+                <View style={styles.elderlyGlassesBridge} />
+                <View style={styles.elderlyGlassesLens} />
+              </View>
             </View>
             <View style={styles.elderlyIconContainer}>
               <View style={[styles.elderlyIconBadge, styles.elderlyIconFemale]}>
@@ -419,15 +423,24 @@ const styles = StyleSheet.create({
   elderlyIconFemale: {
     backgroundColor: '#B8907A',
   },
-  elderlyGlasses: {
+  elderlyGlassesContainer: {
     position: 'absolute',
     top: 16,
-    width: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  elderlyGlassesLens: {
+    width: 10,
     height: 8,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#4A4A4A',
-    backgroundColor: 'transparent',
+    borderRadius: 3,
+    borderWidth: 1.5,
+    borderColor: '#3A3A3A',
+    backgroundColor: 'rgba(200, 220, 255, 0.3)',
+  },
+  elderlyGlassesBridge: {
+    width: 4,
+    height: 1.5,
+    backgroundColor: '#3A3A3A',
   },
   elderlyHairBun: {
     position: 'absolute',
