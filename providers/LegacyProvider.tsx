@@ -26,52 +26,96 @@ export const [LegacyProvider, useLegacy] = createContextHook<LegacyContextType>(
   const [isLoaded, setIsLoaded] = useState(false);
 
   const safeJsonParse = (str: string | null): Record<number, string> | null => {
-    if (!str || typeof str !== 'string') return null;
-    if (str.trim() === '') return null;
+    if (str === null || str === undefined) return null;
+    if (typeof str !== 'string') return null;
+    
+    const trimmed = str.trim();
+    if (trimmed === '' || trimmed === 'undefined' || trimmed === 'null') return null;
+    
     try {
-      const firstChar = str.trim().charAt(0);
-      if (firstChar !== '{' && firstChar !== '[') {
-        console.log('Invalid JSON format, clearing data');
-        return null;
+      const firstChar = trimmed.charAt(0);
+      const lastChar = trimmed.charAt(trimmed.length - 1);
+      
+      if (firstChar === '{' && lastChar === '}') {
+        const parsed = JSON.parse(trimmed);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          return parsed;
+        }
+      } else if (firstChar === '[' && lastChar === ']') {
+        if (trimmed.includes('object Object')) {
+          console.log('Detected corrupted array data, clearing');
+          return null;
+        }
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) {
+          return parsed as unknown as Record<number, string>;
+        }
       }
-      const parsed = JSON.parse(str);
-      if (parsed && typeof parsed === 'object') {
-        return parsed;
-      }
+      
+      console.log('Invalid JSON structure:', trimmed.substring(0, 50));
       return null;
     } catch (e) {
-      console.error('JSON parse error:', e);
+      console.error('JSON parse error:', e, 'Data preview:', str?.substring(0, 100));
       return null;
     }
   };
 
   const loadData = useCallback(async () => {
     try {
-      const [storedAnswers, storedPhotos, storedName] = await Promise.all([
-        AsyncStorage.getItem(STORAGE_KEY),
-        AsyncStorage.getItem(PHOTOS_STORAGE_KEY),
-        AsyncStorage.getItem(NAME_STORAGE_KEY)
-      ]);
+      let storedAnswers: string | null = null;
+      let storedPhotos: string | null = null;
+      let storedName: string | null = null;
+      
+      try {
+        storedAnswers = await AsyncStorage.getItem(STORAGE_KEY);
+      } catch (e) {
+        console.error('Error reading answers:', e);
+        await AsyncStorage.removeItem(STORAGE_KEY).catch(() => {});
+      }
+      
+      try {
+        storedPhotos = await AsyncStorage.getItem(PHOTOS_STORAGE_KEY);
+      } catch (e) {
+        console.error('Error reading photos:', e);
+        await AsyncStorage.removeItem(PHOTOS_STORAGE_KEY).catch(() => {});
+      }
+      
+      try {
+        storedName = await AsyncStorage.getItem(NAME_STORAGE_KEY);
+      } catch (e) {
+        console.error('Error reading name:', e);
+        await AsyncStorage.removeItem(NAME_STORAGE_KEY).catch(() => {});
+      }
       
       const parsedAnswers = safeJsonParse(storedAnswers);
       if (parsedAnswers) {
         setAnswers(parsedAnswers);
-      } else if (storedAnswers) {
-        await AsyncStorage.removeItem(STORAGE_KEY);
+      } else if (storedAnswers && storedAnswers.trim() !== '') {
+        console.log('Removing corrupted answers data');
+        await AsyncStorage.removeItem(STORAGE_KEY).catch(() => {});
       }
 
       const parsedPhotos = safeJsonParse(storedPhotos);
       if (parsedPhotos) {
         setPhotos(parsedPhotos);
-      } else if (storedPhotos) {
-        await AsyncStorage.removeItem(PHOTOS_STORAGE_KEY);
+      } else if (storedPhotos && storedPhotos.trim() !== '') {
+        console.log('Removing corrupted photos data');
+        await AsyncStorage.removeItem(PHOTOS_STORAGE_KEY).catch(() => {});
       }
 
-      if (storedName && typeof storedName === 'string' && storedName.trim() !== '') {
+      if (storedName && typeof storedName === 'string' && storedName.trim() !== '' && !storedName.includes('object Object')) {
         setPersonNameState(storedName);
+      } else if (storedName) {
+        console.log('Removing corrupted name data');
+        await AsyncStorage.removeItem(NAME_STORAGE_KEY).catch(() => {});
       }
     } catch (error) {
       console.error('Error loading data:', error);
+      try {
+        await AsyncStorage.multiRemove([STORAGE_KEY, PHOTOS_STORAGE_KEY, NAME_STORAGE_KEY]);
+      } catch (clearError) {
+        console.error('Error clearing corrupted data:', clearError);
+      }
     } finally {
       setIsLoaded(true);
     }
