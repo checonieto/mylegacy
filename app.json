@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Memoria Viva: Legado para la Familia",
-    "slug": "memoria-viva-legado-para-la-familia",
+    "name": "Living Memory, a family legacy",
+    "slug": "livingmemory-familylegacy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
