@@ -10,8 +10,10 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { FileText, Download, Share2, CheckCircle, RefreshCw } from 'lucide-react-native';
+import { FileText, Share2, CheckCircle, RefreshCw, Printer } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Print from 'expo-print';
+import * as Sharing from 'expo-sharing';
 import { useLegacy } from '@/providers/LegacyProvider';
 import { useLanguage } from '@/providers/LanguageProvider';
 import { QUESTIONS, CATEGORIES } from '@/constants/questions';
@@ -22,18 +24,24 @@ export default function PDFScreen() {
   const { answers, personName, clearAnswers, getProgress } = useLegacy();
   const { t, language } = useLanguage();
   const [isGenerating, setIsGenerating] = useState(false);
-  const [pdfGenerated, setPdfGenerated] = useState(false);
+  const [pdfUri, setPdfUri] = useState<string | null>(null);
   const progress = getProgress();
 
   const generatePDFContent = () => {
+    const dateLocale = language === 'es' ? 'es-ES' : 'en-US';
+    const formattedDate = new Date().toLocaleDateString(dateLocale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
     let htmlContent = `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Open+Sans:wght@400;600&display=swap');
-          
           * {
             margin: 0;
             padding: 0;
@@ -41,20 +49,11 @@ export default function PDFScreen() {
           }
           
           body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: Georgia, 'Times New Roman', serif;
             line-height: 1.8;
             color: #4A4A4A;
-            background: linear-gradient(to bottom, #E8E8E8, #D0D0D0);
-            padding: 40px;
-          }
-          
-          .book-container {
-            max-width: 800px;
-            margin: 0 auto;
             background: white;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
+            padding: 0;
           }
           
           .cover-page {
@@ -63,81 +62,95 @@ export default function PDFScreen() {
             padding: 80px 60px;
             text-align: center;
             page-break-after: always;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
           }
           
           .cover-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 48px;
-            font-weight: 600;
+            font-size: 42px;
+            font-weight: bold;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
           }
           
           .cover-subtitle {
-            font-size: 20px;
+            font-size: 18px;
             opacity: 0.95;
             margin-bottom: 40px;
+          }
+
+          .cover-name {
+            font-size: 28px;
+            font-style: italic;
+            margin-bottom: 40px;
+            opacity: 0.9;
           }
           
           .cover-decoration {
             width: 100px;
             height: 2px;
             background: white;
-            margin: 40px auto;
+            margin: 30px auto;
             opacity: 0.6;
+          }
+
+          .cover-date {
+            margin-top: 40px;
+            font-size: 16px;
+            opacity: 0.8;
           }
           
           .content-page {
-            padding: 60px;
+            padding: 40px;
           }
           
           .category-section {
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             page-break-inside: avoid;
           }
           
           .category-header {
             border-bottom: 3px solid #8B7355;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
           }
           
           .category-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 32px;
+            font-size: 28px;
             color: #4A4A4A;
-            font-weight: 600;
+            font-weight: bold;
           }
           
           .question-block {
-            margin-bottom: 40px;
-            padding: 25px;
-            background: #F5F5F5;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #FAFAFA;
             border-left: 4px solid #8B7355;
             border-radius: 4px;
             page-break-inside: avoid;
           }
           
           .question-number {
-            font-size: 14px;
+            font-size: 12px;
             color: #8B7355;
-            font-weight: 600;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
           }
           
           .question-text {
-            font-family: 'Crimson Text', serif;
-            font-size: 20px;
+            font-size: 18px;
             color: #4A4A4A;
-            margin-bottom: 15px;
-            font-weight: 600;
+            margin-bottom: 12px;
+            font-weight: bold;
           }
           
           .answer-text {
-            font-size: 16px;
-            color: #666666;
+            font-size: 15px;
+            color: #555555;
             line-height: 1.8;
             white-space: pre-wrap;
           }
@@ -146,50 +159,31 @@ export default function PDFScreen() {
             text-align: center;
             padding: 40px;
             background: #F5F5F5;
-            margin-top: 60px;
+            margin-top: 50px;
             border-top: 2px solid #CCCCCC;
           }
           
           .footer-text {
-            font-family: 'Crimson Text', serif;
-            font-size: 18px;
+            font-size: 16px;
             color: #6B5D4F;
             font-style: italic;
           }
           
-          @media print {
-            body {
-              background: white;
-              padding: 0;
-            }
-            .book-container {
-              box-shadow: none;
-            }
-            .question-block {
-              page-break-inside: avoid;
-            }
-            .category-section {
-              page-break-inside: avoid;
-            }
+          @page {
+            margin: 20px;
           }
         </style>
       </head>
       <body>
-        <div class="book-container">
-          <div class="cover-page">
-            <h1 class="cover-title">${t.pdf.title}</h1>
-            <p class="cover-subtitle">${t.pdf.subtitle}</p>
-            <div class="cover-decoration"></div>
-            <p style="margin-top: 60px; font-size: 16px; opacity: 0.9;">
-              ${new Date().toLocaleDateString('es-ES', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </p>
-          </div>
-          
-          <div class="content-page">
+        <div class="cover-page">
+          <h1 class="cover-title">${t.pdf.title}</h1>
+          <p class="cover-subtitle">${t.pdf.subtitle}</p>
+          <div class="cover-decoration"></div>
+          ${personName ? `<p class="cover-name">${personName}</p>` : ''}
+          <p class="cover-date">${formattedDate}</p>
+        </div>
+        
+        <div class="content-page">
     `;
 
     CATEGORIES.forEach(category => {
@@ -197,7 +191,7 @@ export default function PDFScreen() {
         q => q.id >= category.startIndex && q.id <= category.endIndex
       );
       const hasAnswers = categoryQuestions.some(q => answers[q.id]);
-      
+
       if (hasAnswers) {
         const categoryName = language === 'es' ? category.name : t.categories[category.name as keyof typeof t.categories];
         htmlContent += `
@@ -206,21 +200,31 @@ export default function PDFScreen() {
               <h2 class="category-title">${category.icon} ${categoryName}</h2>
             </div>
         `;
-        
+
         categoryQuestions.forEach(question => {
           const answer = answers[question.id];
           if (answer) {
             const questionText = language === 'es' ? question.textEs : question.textEn;
+            const escapedAnswer = answer
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/\n/g, '<br/>');
+            const escapedQuestion = questionText
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;');
+
             htmlContent += `
               <div class="question-block">
                 <div class="question-number">${t.questions.questionLabel.replace('{{number}}', String(question.id))}</div>
-                <div class="question-text">${questionText}</div>
-                <div class="answer-text">${answer}</div>
+                <div class="question-text">${escapedQuestion}</div>
+                <div class="answer-text">${escapedAnswer}</div>
               </div>
             `;
           }
         });
-        
+
         htmlContent += `</div>`;
       }
     });
@@ -232,7 +236,6 @@ export default function PDFScreen() {
             </p>
           </div>
         </div>
-      </div>
       </body>
       </html>
     `;
@@ -241,21 +244,35 @@ export default function PDFScreen() {
   };
 
   const handleGeneratePDF = async () => {
+    if (progress.answered === 0) {
+      Alert.alert(
+        t.pdf.noAnswersTitle,
+        t.pdf.noAnswersMessage,
+        [{ text: t.pdf.ok }]
+      );
+      return;
+    }
+
     setIsGenerating(true);
     if (Platform.OS !== 'web') {
       await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      generatePDFContent();
-      
-      setPdfGenerated(true);
+      const htmlContent = generatePDFContent();
+      console.log('Generating PDF from HTML...');
+
+      const { uri } = await Print.printToFileAsync({
+        html: htmlContent,
+      });
+
+      console.log('PDF generated at:', uri);
+      setPdfUri(uri);
+
       if (Platform.OS !== 'web') {
         await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
-      
+
       Alert.alert(
         t.pdf.successTitle,
         t.pdf.successMessage,
@@ -273,40 +290,65 @@ export default function PDFScreen() {
     }
   };
 
+  const handlePrint = async () => {
+    if (!pdfUri) return;
+
+    try {
+      await Print.printAsync({
+        uri: pdfUri,
+      });
+    } catch (error) {
+      console.error('Error printing PDF:', error);
+      Alert.alert(t.pdf.errorTitle, t.pdf.errorMessage, [{ text: t.pdf.ok }]);
+    }
+  };
+
+  const handleShare = async () => {
+    if (!pdfUri) return;
+
+    try {
+      const isAvailable = await Sharing.isAvailableAsync();
+
+      if (Platform.OS === 'web' && !isAvailable) {
+        Alert.alert(
+          t.pdf.shareTitle,
+          language === 'es'
+            ? 'Compartir no está disponible en este navegador. Usa el botón de imprimir para guardar como PDF.'
+            : 'Sharing is not available in this browser. Use the print button to save as PDF.',
+          [{ text: t.pdf.ok }]
+        );
+        return;
+      }
+
+      await Sharing.shareAsync(pdfUri, {
+        UTI: '.pdf',
+        mimeType: 'application/pdf',
+        dialogTitle: language === 'es' ? 'Compartir Libro del Legado' : 'Share Legacy Book',
+      });
+    } catch (error) {
+      console.error('Error sharing PDF:', error);
+      Alert.alert(t.pdf.errorTitle, t.pdf.errorMessage, [{ text: t.pdf.ok }]);
+    }
+  };
+
   const handleStartNewStory = () => {
     Alert.alert(
       t.pdf.startNewTitle,
       t.pdf.startNewMessage,
       [
         { text: t.questions.cancel, style: 'cancel' },
-        { 
-          text: t.pdf.ok, 
+        {
+          text: t.pdf.ok,
           style: 'destructive',
           onPress: async () => {
-            await clearAnswers();
+            clearAnswers();
             if (Platform.OS !== 'web') {
               await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             }
             router.replace('/');
-          }
-        }
+          },
+        },
       ]
-    );
-  };
-
-  const handleDownload = () => {
-    Alert.alert(
-      t.pdf.downloadTitle,
-      t.pdf.downloadMessage,
-      [{ text: t.pdf.ok }]
-    );
-  };
-
-  const handleShare = () => {
-    Alert.alert(
-      t.pdf.shareTitle,
-      t.pdf.shareMessage,
-      [{ text: t.pdf.ok }]
     );
   };
 
@@ -316,15 +358,15 @@ export default function PDFScreen() {
         colors={['#E8E8E8', '#D0D0D0']}
         style={styles.gradient}
       >
-        {personName && (
+        {personName ? (
           <View style={styles.nameHeader}>
             <Text style={styles.nameHeaderText}>
               {t.questions.recordingFor} {personName}
             </Text>
           </View>
-        )}
-        
-        <ScrollView 
+        ) : null}
+
+        <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
@@ -333,16 +375,16 @@ export default function PDFScreen() {
               <FileText size={60} color="#6B5D4F" />
             </View>
             <Text style={styles.title}>{t.pdf.title}</Text>
-            <Text style={styles.subtitle}>
-              {t.pdf.subtitle}
-            </Text>
+            <Text style={styles.subtitle}>{t.pdf.subtitle}</Text>
           </View>
 
           <View style={styles.statsCard}>
             <Text style={styles.statsTitle}>{t.pdf.summaryTitle}</Text>
             <View style={styles.statRow}>
               <Text style={styles.statLabel}>{t.pdf.questionsAnswered}</Text>
-              <Text style={styles.statValue}>{progress.answered} / {progress.total}</Text>
+              <Text style={styles.statValue}>
+                {progress.answered} / {progress.total}
+              </Text>
             </View>
             <View style={styles.statRow}>
               <Text style={styles.statLabel}>{t.pdf.categoriesCompleted}</Text>
@@ -352,7 +394,8 @@ export default function PDFScreen() {
                     q => q.id >= cat.startIndex && q.id <= cat.endIndex
                   );
                   return questions.every(q => answers[q.id]);
-                }).length} / {CATEGORIES.length}
+                }).length}{' '}
+                / {CATEGORIES.length}
               </Text>
             </View>
           </View>
@@ -377,7 +420,7 @@ export default function PDFScreen() {
             </View>
           </View>
 
-          {!pdfGenerated ? (
+          {!pdfUri ? (
             <TouchableOpacity
               style={styles.generateButton}
               onPress={handleGeneratePDF}
@@ -407,13 +450,15 @@ export default function PDFScreen() {
             <View style={styles.actionsContainer}>
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={handleDownload}
+                onPress={handlePrint}
                 activeOpacity={0.8}
               >
-                <Download size={24} color="#6B5D4F" />
-                <Text style={styles.actionButtonText}>{t.pdf.download}</Text>
+                <Printer size={24} color="#6B5D4F" />
+                <Text style={styles.actionButtonText}>
+                  {language === 'es' ? 'Imprimir' : 'Print'}
+                </Text>
               </TouchableOpacity>
-              
+
               <TouchableOpacity
                 style={styles.actionButton}
                 onPress={handleShare}
@@ -424,6 +469,21 @@ export default function PDFScreen() {
               </TouchableOpacity>
             </View>
           )}
+
+          {pdfUri ? (
+            <TouchableOpacity
+              style={styles.regenerateButton}
+              onPress={() => {
+                setPdfUri(null);
+              }}
+              activeOpacity={0.8}
+            >
+              <RefreshCw size={18} color="#6B5D4F" />
+              <Text style={styles.regenerateText}>
+                {language === 'es' ? 'Regenerar PDF' : 'Regenerate PDF'}
+              </Text>
+            </TouchableOpacity>
+          ) : null}
 
           <TouchableOpacity
             style={styles.backButton}
@@ -589,7 +649,7 @@ const styles = StyleSheet.create({
   actionsContainer: {
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   actionButton: {
     flex: 1,
@@ -607,6 +667,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600' as const,
     color: '#6B5D4F',
+  },
+  regenerateButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    gap: 8,
+    marginBottom: 8,
+  },
+  regenerateText: {
+    fontSize: 15,
+    color: '#6B5D4F',
+    fontWeight: '500' as const,
   },
   backButton: {
     paddingVertical: 14,
