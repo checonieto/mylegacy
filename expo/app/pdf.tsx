@@ -355,7 +355,7 @@ export default function PDFScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#E8E8E8', '#D0D0D0']}
+        colors={['#FBF5EA', '#F0E4D0']}
         style={styles.gradient}
       >
         {personName ? (
@@ -428,7 +428,7 @@ export default function PDFScreen() {
               activeOpacity={0.8}
             >
               <LinearGradient
-                colors={['#6B5D4F', '#8B7355']}
+                colors={['#5C4332', '#7A5C42']}
                 style={styles.buttonGradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
@@ -498,7 +498,7 @@ export default function PDFScreen() {
               onPress={handleStartNewStory}
               activeOpacity={0.8}
             >
-              <RefreshCw size={20} color="#FF6B6B" />
+              <RefreshCw size={20} color="#B54A32" />
               <Text style={styles.startNewButtonText}>{t.pdf.startNewButton}</Text>
             </TouchableOpacity>
           )}
@@ -511,17 +511,17 @@ export default function PDFScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#FBF5EA',
   },
   gradient: {
     flex: 1,
   },
   nameHeader: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFDF7',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#CCCCCC',
+    borderBottomColor: '#E8DBC2',
   },
   nameHeaderText: {
     fontSize: 14,
@@ -541,11 +541,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F5EBD8',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    shadowColor: '#000',
+    borderWidth: 1,
+    borderColor: '#E8DBC2',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -566,13 +568,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   statsCard: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFDF7',
     borderRadius: 16,
     padding: 20,
     marginBottom: 20,
-    shadowColor: '#000',
+    borderWidth: 1,
+    borderColor: '#E8DBC2',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.08,
     shadowRadius: 4,
     elevation: 2,
   },
@@ -597,13 +601,15 @@ const styles = StyleSheet.create({
     color: '#4A4A4A',
   },
   previewCard: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFDF7',
     borderRadius: 16,
     padding: 20,
     marginBottom: 32,
-    shadowColor: '#000',
+    borderWidth: 1,
+    borderColor: '#E8DBC2',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.08,
     shadowRadius: 4,
     elevation: 2,
   },
@@ -654,14 +660,14 @@ const styles = StyleSheet.create({
   actionButton: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#FFFDF7',
     borderRadius: 16,
     paddingVertical: 16,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
     borderWidth: 2,
-    borderColor: '#CCCCCC',
+    borderColor: '#D9C9AC',
   },
   actionButtonText: {
     fontSize: 16,
@@ -699,12 +705,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: '#FF6B6B',
+    borderColor: '#B54A32',
     gap: 8,
+    backgroundColor: '#FFFDF7',
   },
   startNewButtonText: {
     fontSize: 16,
     fontWeight: '600' as const,
-    color: '#FF6B6B',
+    color: '#B54A32',
   },
 });

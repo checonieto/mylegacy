@@ -92,6 +92,11 @@ const translations = {
       recordError: 'No se pudo iniciar la grabación',
       transcribeError: 'No se pudo procesar la grabación',
       photoError: 'No se pudo agregar la foto',
+      listen: 'Escuchar pregunta',
+      stopListening: 'Detener',
+      soundOn: 'Voz activada',
+      soundOff: 'Voz desactivada',
+      hint: 'Puedes escribir tu respuesta, grabarla con tu voz o agregar una foto, como prefieras.',
     },
     review: {
       title: 'Tus Respuestas',
@@ -226,6 +231,11 @@ const translations = {
       recordError: 'Could not start recording',
       transcribeError: 'Could not process recording',
       photoError: 'Could not add photo',
+      listen: 'Listen to question',
+      stopListening: 'Stop',
+      soundOn: 'Voice on',
+      soundOff: 'Voice off',
+      hint: 'You can write your answer, record it with your voice, or add a photo — whatever you prefer.',
     },
     review: {
       title: 'Your Answers',

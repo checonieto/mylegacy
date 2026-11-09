@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { BookOpen, ChevronRight, ChevronLeft, User } from 'lucide-react-native';
+import { BookOpen, ChevronRight, ChevronLeft, User, Sparkles } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLegacy } from '@/providers/LegacyProvider';
 import { useLanguage } from '@/providers/LanguageProvider';
@@ -72,22 +72,29 @@ export default function WelcomeScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <LinearGradient
-          colors={['#E8E8E8', '#D0D0D0']}
+          colors={['#FBF5EA', '#F0E4D0']}
           style={styles.gradient}
         >
           <View style={styles.languageToggleContainer}>
             <LanguageToggle />
           </View>
-          
+
           <View style={styles.nameInputContainer}>
             <View style={styles.nameInputCard}>
-              <BookOpen size={60} color="#6B5D4F" style={styles.nameInputIcon} />
+              <View style={styles.nameInputIconWrap}>
+                <BookOpen size={44} color="#FFF8EC" />
+              </View>
               <Text style={styles.nameInputTitle}>{t.welcome.title}</Text>
+              <View style={styles.ornamentRow}>
+                <View style={styles.ornamentLine} />
+                <Sparkles size={16} color="#C9A227" />
+                <View style={styles.ornamentLine} />
+              </View>
               <Text style={styles.nameInputPrompt}>{t.welcome.namePrompt}</Text>
               <TextInput
                 style={styles.nameInput}
                 placeholder={t.welcome.namePlaceholder}
-                placeholderTextColor="#999999"
+                placeholderTextColor="#A89B88"
                 value={inputName}
                 onChangeText={setInputName}
                 autoFocus
@@ -99,12 +106,13 @@ export default function WelcomeScreen() {
                 activeOpacity={0.8}
               >
                 <LinearGradient
-                  colors={inputName.trim() ? ['#6B5D4F', '#8B7355'] : ['#CCCCCC', '#AAAAAA']}
+                  colors={inputName.trim() ? ['#5C4332', '#7A5C42'] : ['#C9BBA8', '#B5A58F']}
                   style={styles.nameInputButtonGradient}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 0 }}
                 >
                   <Text style={styles.nameInputButtonText}>{t.welcome.nameButton}</Text>
+                  <ChevronRight size={18} color="#FFF8EC" />
                 </LinearGradient>
               </TouchableOpacity>
             </View>
@@ -118,10 +126,18 @@ export default function WelcomeScreen() {
     <View style={styles.slide}>
       <View style={styles.slideContent}>
         <View style={styles.slideCard}>
+          <View style={styles.slideCardHeader}>
+            <BookOpen size={22} color="#C9A227" />
+          </View>
           <Text style={styles.slideTitle}>{t.welcome.welcomeTitle}</Text>
-          <ScrollView 
+          <View style={styles.ornamentRow}>
+            <View style={styles.ornamentLine} />
+            <Sparkles size={14} color="#C9A227" />
+            <View style={styles.ornamentLine} />
+          </View>
+          <ScrollView
             style={styles.slideScrollView}
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
           >
             <Text style={styles.slideText}>{t.welcome.welcomeText1}</Text>
@@ -137,22 +153,27 @@ export default function WelcomeScreen() {
       <View style={styles.slideContent}>
         <View style={styles.slideCard}>
           <Text style={styles.slideTitle}>{t.welcome.whoCanFillTitle}</Text>
-          <ScrollView 
+          <View style={styles.ornamentRow}>
+            <View style={styles.ornamentLine} />
+            <Sparkles size={14} color="#C9A227" />
+            <View style={styles.ornamentLine} />
+          </View>
+          <ScrollView
             style={styles.slideScrollView}
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
           >
             <Text style={styles.slideText}>{t.welcome.whoCanFillText}</Text>
             <View style={styles.bulletPoint}>
-              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.bullet}>❧</Text>
               <Text style={styles.bulletText}>{t.welcome.bullet1}</Text>
             </View>
             <View style={styles.bulletPoint}>
-              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.bullet}>❧</Text>
               <Text style={styles.bulletText}>{t.welcome.bullet2}</Text>
             </View>
             <View style={styles.bulletPoint}>
-              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.bullet}>❧</Text>
               <Text style={styles.bulletText}>{t.welcome.bullet3}</Text>
             </View>
           </ScrollView>
@@ -166,53 +187,34 @@ export default function WelcomeScreen() {
       <View style={styles.slideContent}>
         <View style={styles.slideCard}>
           <Text style={styles.slideTitle}>{t.welcome.howToUseTitle}</Text>
-          <ScrollView 
+          <View style={styles.ornamentRow}>
+            <View style={styles.ornamentLine} />
+            <Sparkles size={14} color="#C9A227" />
+            <View style={styles.ornamentLine} />
+          </View>
+          <ScrollView
             style={styles.slideScrollView}
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
           >
-            <View style={styles.stepContainer}>
-              <Text style={styles.stepNumber}>1.</Text>
-              <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>{t.welcome.step1Title}</Text>
-                <Text style={styles.stepText}>{t.welcome.step1Text}</Text>
+            {[
+              { n: '1', title: t.welcome.step1Title, text: t.welcome.step1Text },
+              { n: '2', title: t.welcome.step2Title, text: t.welcome.step2Text },
+              { n: '3', title: t.welcome.step3Title, text: t.welcome.step3Text },
+              { n: '4', title: t.welcome.step4Title, text: t.welcome.step4Text },
+              { n: '5', title: t.welcome.step5Title, text: t.welcome.step5Text },
+              { n: '6', title: t.welcome.step6Title, text: t.welcome.step6Text },
+            ].map((step) => (
+              <View key={step.n} style={styles.stepContainer}>
+                <View style={styles.stepBadge}>
+                  <Text style={styles.stepNumber}>{step.n}</Text>
+                </View>
+                <View style={styles.stepContent}>
+                  <Text style={styles.stepTitle}>{step.title}</Text>
+                  <Text style={styles.stepText}>{step.text}</Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.stepContainer}>
-              <Text style={styles.stepNumber}>2.</Text>
-              <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>{t.welcome.step2Title}</Text>
-                <Text style={styles.stepText}>{t.welcome.step2Text}</Text>
-              </View>
-            </View>
-            <View style={styles.stepContainer}>
-              <Text style={styles.stepNumber}>3.</Text>
-              <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>{t.welcome.step3Title}</Text>
-                <Text style={styles.stepText}>{t.welcome.step3Text}</Text>
-              </View>
-            </View>
-            <View style={styles.stepContainer}>
-              <Text style={styles.stepNumber}>4.</Text>
-              <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>{t.welcome.step4Title}</Text>
-                <Text style={styles.stepText}>{t.welcome.step4Text}</Text>
-              </View>
-            </View>
-            <View style={styles.stepContainer}>
-              <Text style={styles.stepNumber}>5.</Text>
-              <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>{t.welcome.step5Title}</Text>
-                <Text style={styles.stepText}>{t.welcome.step5Text}</Text>
-              </View>
-            </View>
-            <View style={styles.stepContainer}>
-              <Text style={styles.stepNumber}>6.</Text>
-              <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>{t.welcome.step6Title}</Text>
-                <Text style={styles.stepText}>{t.welcome.step6Text}</Text>
-              </View>
-            </View>
+            ))}
           </ScrollView>
         </View>
       </View>
@@ -222,7 +224,7 @@ export default function WelcomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#E8E8E8', '#D0D0D0']}
+        colors={['#FBF5EA', '#F0E4D0']}
         style={styles.gradient}
       >
         <View style={styles.languageToggleContainer}>
@@ -231,13 +233,20 @@ export default function WelcomeScreen() {
 
         <View style={styles.header}>
           <View style={styles.iconContainer}>
-            <BookOpen size={50} color="#6B5D4F" />
+            <LinearGradient
+              colors={['#5C4332', '#7A5C42']}
+              style={styles.iconGradient}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+            >
+              <BookOpen size={40} color="#FFF8EC" />
+            </LinearGradient>
           </View>
-          
+
           <View style={styles.elderlyIconsRow}>
             <View style={styles.elderlyIconContainer}>
               <View style={styles.elderlyIconBadge}>
-                <User size={28} color="#FFFFFF" strokeWidth={2.5} />
+                <User size={26} color="#FFF8EC" strokeWidth={2.5} />
               </View>
               <View style={styles.elderlyGlassesContainer}>
                 <View style={styles.elderlyGlassesLens} />
@@ -245,14 +254,15 @@ export default function WelcomeScreen() {
                 <View style={styles.elderlyGlassesLens} />
               </View>
             </View>
+            <View style={styles.elderlyDivider} />
             <View style={styles.elderlyIconContainer}>
               <View style={[styles.elderlyIconBadge, styles.elderlyIconFemale]}>
-                <User size={28} color="#FFFFFF" strokeWidth={2.5} />
+                <User size={26} color="#FFF8EC" strokeWidth={2.5} />
               </View>
               <View style={styles.elderlyHairBun} />
             </View>
           </View>
-          
+
           <Text style={styles.title}>{t.welcome.title}</Text>
           <Text style={styles.subtitle}>{t.welcome.subtitle}</Text>
         </View>
@@ -295,7 +305,7 @@ export default function WelcomeScreen() {
                 onPress={handlePrevious}
                 activeOpacity={0.7}
               >
-                <ChevronLeft size={20} color="#6B5D4F" />
+                <ChevronLeft size={20} color="#5C4332" />
                 <Text style={styles.navButtonText}>{t.welcome.carouselPrevious}</Text>
               </TouchableOpacity>
             ) : (
@@ -318,7 +328,7 @@ export default function WelcomeScreen() {
               <Text style={styles.navButtonText}>
                 {currentSlide === 2 ? t.welcome.carouselStart : t.welcome.carouselNext}
               </Text>
-              <ChevronRight size={20} color="#6B5D4F" />
+              <ChevronRight size={20} color="#5C4332" />
             </TouchableOpacity>
           </View>
         </View>
@@ -328,11 +338,11 @@ export default function WelcomeScreen() {
             <View style={styles.progressCard}>
               <Text style={styles.progressTitle}>{t.welcome.progressTitle}</Text>
               <View style={styles.progressBar}>
-                <View 
+                <View
                   style={[
-                    styles.progressFill, 
+                    styles.progressFill,
                     { width: `${(progress.answered / progress.total) * 100}%` }
-                  ]} 
+                  ]}
                 />
               </View>
               <Text style={styles.progressText}>
@@ -347,12 +357,13 @@ export default function WelcomeScreen() {
               activeOpacity={0.8}
             >
               <LinearGradient
-                colors={['#6B5D4F', '#8B7355']}
+                colors={['#5C4332', '#7A5C42']}
                 style={styles.buttonGradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
               >
                 <Text style={styles.continueButtonText}>{t.welcome.continueButton}</Text>
+                <ChevronRight size={20} color="#FFF8EC" />
               </LinearGradient>
             </TouchableOpacity>
           </View>
@@ -365,7 +376,7 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#FBF5EA',
   },
   gradient: {
     flex: 1,
@@ -378,30 +389,38 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    paddingTop: 50,
-    paddingBottom: 16,
+    paddingTop: 48,
+    paddingBottom: 12,
     paddingHorizontal: 24,
   },
   iconContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#F5F5F5',
+    width: 88,
+    height: 88,
+    borderRadius: 44,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowColor: '#5C4332',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  iconGradient: {
+    width: 88,
+    height: 88,
+    borderRadius: 44,
+    borderWidth: 3,
+    borderColor: '#C9A227',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   elderlyIconsRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 16,
-    marginBottom: 12,
+    gap: 20,
+    marginBottom: 14,
   },
   elderlyIconContainer: {
     position: 'relative',
@@ -411,83 +430,92 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    backgroundColor: '#7B8D9E',
+    backgroundColor: '#7A6A55',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 3,
   },
   elderlyIconFemale: {
-    backgroundColor: '#B8907A',
+    backgroundColor: '#B07A5A',
+  },
+  elderlyDivider: {
+    width: 1,
+    height: 36,
+    backgroundColor: '#D9C9AC',
   },
   elderlyGlassesContainer: {
     position: 'absolute',
-    top: 16,
+    top: 15,
     flexDirection: 'row',
     alignItems: 'center',
   },
   elderlyGlassesLens: {
-    width: 10,
-    height: 8,
+    width: 11,
+    height: 9,
     borderRadius: 3,
-    borderWidth: 1.5,
-    borderColor: '#3A3A3A',
-    backgroundColor: 'rgba(200, 220, 255, 0.3)',
+    borderWidth: 2,
+    borderColor: '#FFF8EC',
+    backgroundColor: 'rgba(255, 248, 236, 0.2)',
   },
   elderlyGlassesBridge: {
-    width: 4,
-    height: 1.5,
-    backgroundColor: '#3A3A3A',
+    width: 5,
+    height: 2,
+    backgroundColor: '#FFF8EC',
   },
   elderlyHairBun: {
     position: 'absolute',
-    top: -4,
+    top: -5,
     width: 18,
     height: 12,
     borderRadius: 9,
-    backgroundColor: '#E8E0D8',
+    backgroundColor: '#F0E4D0',
     borderWidth: 1,
-    borderColor: '#D0C8C0',
+    borderColor: '#D9C9AC',
   },
   title: {
-    fontSize: 26,
+    fontSize: 27,
     fontWeight: 'bold' as const,
-    color: '#4A4A4A',
+    color: '#3D2F24',
     marginBottom: 8,
     textAlign: 'center',
+    letterSpacing: 0.3,
   },
   subtitle: {
     fontSize: 15,
-    color: '#6B5D4F',
+    color: '#7A6A55',
     textAlign: 'center',
     lineHeight: 22,
+    fontStyle: 'italic' as const,
   },
   carouselHeader: {
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
   },
   carouselTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600' as const,
-    color: '#8B7355',
-    marginBottom: 12,
+    color: '#9A7B3F',
+    marginBottom: 10,
+    textTransform: 'uppercase' as const,
+    letterSpacing: 1.5,
   },
   dotsContainer: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 8,
   },
   dot: {
-    width: 10,
-    height: 10,
+    width: 9,
+    height: 9,
     borderRadius: 5,
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#D9C9AC',
   },
   dotActive: {
-    backgroundColor: '#6B5D4F',
-    width: 24,
+    backgroundColor: '#C9A227',
+    width: 26,
   },
   carousel: {
     flex: 1,
@@ -503,18 +531,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   slideCard: {
-    backgroundColor: 'white',
-    borderRadius: 20,
+    backgroundColor: '#FFFDF7',
+    borderRadius: 22,
     padding: 24,
-    shadowColor: '#000',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
     elevation: 5,
-    borderLeftWidth: 4,
-    borderLeftColor: '#8B7355',
+    borderWidth: 1,
+    borderColor: '#E8DBC2',
     flex: 1,
     maxHeight: '100%',
+  },
+  slideCardHeader: {
+    alignItems: 'center',
+    marginBottom: 8,
   },
   slideScrollView: {
     flex: 1,
@@ -522,66 +554,85 @@ const styles = StyleSheet.create({
   slideTitle: {
     fontSize: 20,
     fontWeight: '700' as const,
-    color: '#4A4A4A',
-    marginBottom: 16,
+    color: '#3D2F24',
+    marginBottom: 8,
     textAlign: 'center',
+  },
+  ornamentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    marginBottom: 16,
+  },
+  ornamentLine: {
+    width: 40,
+    height: 1,
+    backgroundColor: '#C9A227',
+    opacity: 0.5,
   },
   slideText: {
     fontSize: 15,
-    color: '#666666',
-    lineHeight: 23,
+    color: '#5A4C3E',
+    lineHeight: 24,
     marginBottom: 12,
-    textAlign: 'justify',
   },
   bulletPoint: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
-    paddingLeft: 8,
+    marginBottom: 12,
+    paddingLeft: 4,
   },
   bullet: {
     fontSize: 16,
-    color: '#8B7355',
+    color: '#C9A227',
     fontWeight: 'bold' as const,
     marginRight: 10,
     marginTop: 2,
   },
   bulletText: {
     fontSize: 15,
-    color: '#666666',
-    lineHeight: 22,
+    color: '#5A4C3E',
+    lineHeight: 23,
     flex: 1,
   },
   stepContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 12,
+    marginBottom: 14,
+  },
+  stepBadge: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: '#C9A227',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+    marginTop: 2,
   },
   stepNumber: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: 'bold' as const,
-    color: '#8B7355',
-    marginRight: 10,
-    marginTop: 2,
-    minWidth: 18,
+    color: '#FFFDF7',
   },
   stepContent: {
     flex: 1,
   },
   stepTitle: {
-    fontSize: 14,
-    fontWeight: '600' as const,
-    color: '#4A4A4A',
+    fontSize: 15,
+    fontWeight: '700' as const,
+    color: '#3D2F24',
     marginBottom: 2,
   },
   stepText: {
     fontSize: 13,
-    color: '#666666',
+    color: '#7A6A55',
     lineHeight: 19,
   },
   navigationContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingVertical: 14,
   },
   navButtonsRow: {
     flexDirection: 'row',
@@ -593,23 +644,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 16,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFDF7',
     borderRadius: 25,
-    shadowColor: '#000',
+    borderWidth: 1,
+    borderColor: '#D9C9AC',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    minWidth: 100,
+    minWidth: 104,
     justifyContent: 'center',
   },
   navButtonPlaceholder: {
-    width: 100,
+    width: 104,
   },
   navButtonText: {
     fontSize: 15,
     fontWeight: '600' as const,
-    color: '#6B5D4F',
+    color: '#5C4332',
   },
   skipButton: {
     paddingVertical: 10,
@@ -617,64 +670,70 @@ const styles = StyleSheet.create({
   },
   skipButtonText: {
     fontSize: 15,
-    color: '#999999',
+    color: '#A89B88',
     fontWeight: '500' as const,
+    textDecorationLine: 'underline' as const,
   },
   progressSection: {
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingBottom: 18,
   },
   progressCard: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFDF7',
     borderRadius: 16,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
+    borderWidth: 1,
+    borderColor: '#E8DBC2',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.06,
     shadowRadius: 4,
     elevation: 2,
   },
   progressTitle: {
     fontSize: 16,
     fontWeight: '600' as const,
-    color: '#4A4A4A',
+    color: '#3D2F24',
     marginBottom: 10,
   },
   progressBar: {
-    height: 6,
-    backgroundColor: '#E8E8E8',
-    borderRadius: 3,
+    height: 8,
+    backgroundColor: '#EFE3CE',
+    borderRadius: 4,
     overflow: 'hidden',
     marginBottom: 6,
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#8B7355',
-    borderRadius: 3,
+    backgroundColor: '#C9A227',
+    borderRadius: 4,
   },
   progressText: {
     fontSize: 13,
-    color: '#6B5D4F',
+    color: '#7A6A55',
   },
   continueButton: {
-    borderRadius: 25,
+    borderRadius: 28,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.12,
-    shadowRadius: 6,
-    elevation: 4,
+    shadowColor: '#5C4332',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 5,
   },
   buttonGradient: {
-    paddingVertical: 14,
+    paddingVertical: 15,
     paddingHorizontal: 28,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
   },
   continueButtonText: {
     fontSize: 17,
     fontWeight: '600' as const,
-    color: 'white',
+    color: '#FFF8EC',
   },
   nameInputContainer: {
     flex: 1,
@@ -683,43 +742,54 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   nameInputCard: {
-    backgroundColor: 'white',
-    borderRadius: 24,
-    padding: 40,
+    backgroundColor: '#FFFDF7',
+    borderRadius: 26,
+    padding: 36,
     width: '100%',
     maxWidth: 500,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: '#E8DBC2',
+    shadowColor: '#5C4332',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 6,
   },
-  nameInputIcon: {
+  nameInputIconWrap: {
+    width: 84,
+    height: 84,
+    borderRadius: 42,
+    backgroundColor: '#5C4332',
+    borderWidth: 3,
+    borderColor: '#C9A227',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 20,
   },
   nameInputTitle: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold' as const,
-    color: '#4A4A4A',
-    marginBottom: 24,
+    color: '#3D2F24',
+    marginBottom: 12,
     textAlign: 'center',
   },
   nameInputPrompt: {
     fontSize: 18,
-    color: '#6B5D4F',
+    color: '#7A6A55',
     marginBottom: 20,
     textAlign: 'center',
+    fontStyle: 'italic' as const,
   },
   nameInput: {
     width: '100%',
-    backgroundColor: '#F5F5F5',
-    borderRadius: 12,
+    backgroundColor: '#FBF5EA',
+    borderRadius: 14,
     padding: 16,
     fontSize: 18,
-    color: '#4A4A4A',
+    color: '#3D2F24',
     borderWidth: 2,
-    borderColor: '#CCCCCC',
+    borderColor: '#D9C9AC',
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -727,9 +797,9 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 30,
     overflow: 'hidden',
-    shadowColor: '#000',
+    shadowColor: '#5C4332',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.25,
     shadowRadius: 8,
     elevation: 5,
   },
@@ -741,10 +811,13 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 32,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
   },
   nameInputButtonText: {
     fontSize: 18,
     fontWeight: '600' as const,
-    color: 'white',
+    color: '#FFF8EC',
   },
 });

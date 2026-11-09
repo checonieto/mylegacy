@@ -15,9 +15,9 @@ function RootLayoutNav() {
     <Stack screenOptions={{ 
       headerBackTitle: "Back",
       headerStyle: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#FBF5EA',
       },
-      headerTintColor: '#4A4A4A',
+      headerTintColor: '#3D2F24',
     }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="questions" options={{ title: "Tu Historia" }} />
