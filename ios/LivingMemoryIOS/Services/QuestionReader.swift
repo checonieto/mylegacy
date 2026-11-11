@@ -175,9 +175,12 @@ enum Narrator {
     }
 
     private static func cacheURL(for text: String, language: AppLanguage) -> URL {
-        let digest = SHA256.hash(data: Data("\(language.rawValue)|\(text)".utf8))
+        // The voice id is part of the key so switching to a better voice
+        // automatically regenerates every clip instead of replaying old ones.
+        let voice = voices[language] ?? "system"
+        let digest = SHA256.hash(data: Data("\(language.rawValue)|\(voice)|\(text)".utf8))
         let hash = digest.map { String(format: "%02x", $0) }.joined()
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        return base.appendingPathComponent("TTSCache/\(hash).mp3", isDirectory: false)
+        return base.appendingPathComponent("TTSCache/v2/\(hash).mp3", isDirectory: false)
     }
 }
