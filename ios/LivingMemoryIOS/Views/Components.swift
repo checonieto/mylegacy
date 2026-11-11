@@ -38,22 +38,24 @@ struct LanguageToggle: View {
     }
 }
 
-/// Walnut medallion with a gold ring holding an open book.
+/// Gold-ringed cream medallion holding the user's logo mark.
 struct BookEmblem: View {
     var size: CGFloat = 88
 
     var body: some View {
         ZStack {
             Circle()
-                .fill(LinearGradient(colors: [Palette.walnut, Palette.walnutLight], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .fill(LinearGradient(colors: [Palette.card, Palette.cream], startPoint: .topLeading, endPoint: .bottomTrailing))
             Circle()
                 .strokeBorder(Palette.gold, lineWidth: size * 0.035)
             Circle()
                 .strokeBorder(Palette.gold.opacity(0.35), lineWidth: 1)
                 .padding(size * 0.09)
-            Image(systemName: "book.fill")
-                .font(.system(size: size * 0.4, weight: .medium))
-                .foregroundStyle(Palette.onDark)
+            Image("LogoMark")
+                .resizable()
+                .scaledToFit()
+                .padding(.horizontal, size * 0.19)
+                .padding(.vertical, size * 0.26)
         }
         .frame(width: size, height: size)
         .shadow(color: Palette.walnut.opacity(0.3), radius: 10, y: 5)

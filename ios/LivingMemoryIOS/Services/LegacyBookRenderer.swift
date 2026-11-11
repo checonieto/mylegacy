@@ -120,6 +120,13 @@ struct LegacyBookRenderer {
             y += ceil(size.height) + spacingAfter
         }
 
+        // The user's logo mark, tinted cream, crowns the cover.
+        if let mark = UIImage(named: "LogoMark")?.withTintColor(Self.cream, renderingMode: .alwaysOriginal), mark.size.width > 0 {
+            let markWidth: CGFloat = 96
+            let markHeight = markWidth * (mark.size.height / mark.size.width)
+            mark.draw(in: CGRect(x: pageRect.midX - markWidth / 2, y: 128, width: markWidth, height: markHeight))
+        }
+
         drawCentered("❦", font: serif(30), color: Self.gold, spacingAfter: 24)
         drawCentered(t.title, font: serif(40, bold: true), color: Self.cream, spacingAfter: 18)
         drawCentered(t.pdfSubtitle, font: serif(15, italic: true), color: Self.cream.withAlphaComponent(0.85), spacingAfter: 34)
