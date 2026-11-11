@@ -192,7 +192,7 @@ struct Strings {
         bullets: [
             "Por ti mismo, a tu ritmo y con calma.",
             "Con ayuda de un familiar, como un hijo, nieto o sobrino que te haga las preguntas y anote tus respuestas.",
-            "Durante una conversación grabada, para luego escribir las respuestas con más detalle.",
+            "Si prefieres no escribir a mano ni teclear, puedes grabar tu respuesta con tu voz y yo la escribiré por ti.",
         ],
         howToUseTitle: "¿Cómo se usa?",
         steps: [
@@ -313,7 +313,7 @@ struct Strings {
         bullets: [
             "By yourself, at your own pace and calmly.",
             "With the help of a family member, such as a child, grandchild, or nephew who asks you the questions and writes down your answers.",
-            "During a recorded conversation, to later write the answers in more detail.",
+            "If you'd rather not write by hand or type, you can record your answer with your voice and I will write it down for you.",
         ],
         howToUseTitle: "How to use it?",
         steps: [
@@ -434,7 +434,7 @@ struct Strings {
         bullets: [
             "Por você mesmo, no seu próprio ritmo e com calma.",
             "Com a ajuda de um familiar, como um filho, neto ou sobrinho, que faça as perguntas e anote as suas respostas.",
-            "Durante uma conversa gravada, para depois escrever as respostas com mais detalhes.",
+            "Se você preferir não escrever à mão nem digitar, pode gravar a sua resposta com a voz e eu escrevo por você.",
         ],
         howToUseTitle: "Como se usa?",
         steps: [
