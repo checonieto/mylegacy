@@ -1,0 +1,47 @@
+{
+  "app": "ios",
+  "scenario": "app-store",
+  "capturePlan": "screenshots/capture-plans/ios-ax-7680dcc6d6b3.json",
+  "note": "Raw captureOnly URLs captured this turn (all 4/4 targets passed label verification). Next step: open final user review per device+language set with the same captureScriptPath, then upload to ASC.",
+  "sizes": { "iphone": "1320x2868", "ipad": "1668x2420 (iPad Pro 11-inch; ASC IPAD_PRO_3GEN_129 may require 2064x2752 - check before upload)" },
+  "iphone": {
+    "es": {
+      "welcome": "https://r2-pub.rork.com/app-store-screenshots/8261f6d0-34a6-4bf2-aae6-c276f15ae558.png",
+      "questions": "https://r2-pub.rork.com/app-store-screenshots/c6cc85a4-b1ab-4075-a40d-1e3edfa7352e.png",
+      "review": "https://r2-pub.rork.com/app-store-screenshots/790e1deb-5b5a-4275-a662-f13592f57e3f.png",
+      "book": "https://r2-pub.rork.com/app-store-screenshots/7496e57d-e97c-446c-b148-48e0a41a46d5.png"
+    },
+    "en": {
+      "welcome": "https://r2-pub.rork.com/app-store-screenshots/feb5b50f-aedd-431c-a5ca-1cd63a95745a.png",
+      "questions": "https://r2-pub.rork.com/app-store-screenshots/575b9f81-e4e3-41a8-8b75-ca4914785c28.png",
+      "review": "https://r2-pub.rork.com/app-store-screenshots/66be1e66-e1fc-474a-8126-6e8e736a4915.png",
+      "book": "https://r2-pub.rork.com/app-store-screenshots/312e695d-1947-4814-ae5d-cd1aa36d5957.png"
+    },
+    "pt": {
+      "welcome": "https://r2-pub.rork.com/app-store-screenshots/61629c88-1989-47bd-82e6-1d210f067b6a.png",
+      "questions": "https://r2-pub.rork.com/app-store-screenshots/6d4bda91-d97f-4f46-80b8-45fb68aaf455.png",
+      "review": "https://r2-pub.rork.com/app-store-screenshots/5f092c19-f18a-4c70-ba33-4b6ffaf94a6e.png",
+      "book": "https://r2-pub.rork.com/app-store-screenshots/a0a6ec4b-9afa-4582-ae9c-13acd74b1fef.png"
+    }
+  },
+  "ipad": {
+    "es": {
+      "welcome": "https://r2-pub.rork.com/app-store-screenshots/51e0c566-8cf0-487c-a1cf-d6bd5ec357c1.png",
+      "questions": "https://r2-pub.rork.com/app-store-screenshots/d193cc17-87a6-4455-a652-c999b97b1123.png",
+      "review": "https://r2-pub.rork.com/app-store-screenshots/df7ffa9f-05a8-4368-8cf4-5a1781efebc6.png",
+      "book": "https://r2-pub.rork.com/app-store-screenshots/d1a53036-4bfc-4280-9f51-52763ab6c249.png"
+    },
+    "en": {
+      "welcome": "https://r2-pub.rork.com/app-store-screenshots/3c369f03-250c-462a-baff-61031ca7dd45.png",
+      "questions": "https://r2-pub.rork.com/app-store-screenshots/9a131c50-d662-4e2e-b070-37c90d96f0ef.png",
+      "review": "https://r2-pub.rork.com/app-store-screenshots/7b2ef28c-c3af-4d2d-b945-7256f34462f9.png",
+      "book": "https://r2-pub.rork.com/app-store-screenshots/23ceebc6-6d1c-43ec-af88-41de4aa22e27.png"
+    },
+    "pt": {
+      "welcome": "https://r2-pub.rork.com/app-store-screenshots/783ea3c3-c5d6-4329-906c-b131171c388a.png",
+      "questions": "https://r2-pub.rork.com/app-store-screenshots/a217ecfd-d6eb-44cb-b4cf-1f255cc9c43b.png",
+      "review": "https://r2-pub.rork.com/app-store-screenshots/7dc086cd-98d5-4858-aa28-6393328d8a3f.png",
+      "book": "https://r2-pub.rork.com/app-store-screenshots/0a550363-4da3-4be2-95bb-244349537968.png"
+    }
+  }
+}

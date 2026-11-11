@@ -9,7 +9,12 @@ import SwiftUI
 
 @main
 struct LivingMemoryIOSApp: App {
-    @State private var store = LegacyStore()
+    @State private var store: LegacyStore = {
+        #if DEBUG && targetEnvironment(simulator)
+        ScreenshotMode.seedIfNeeded()
+        #endif
+        return LegacyStore()
+    }()
     @State private var languageStore = LanguageStore()
     @State private var voiceSettings = VoiceSettings()
 

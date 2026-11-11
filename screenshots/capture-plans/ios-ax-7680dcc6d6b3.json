@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "platform": "ios",
+  "screenshotScenario": "app-store",
+  "screenshotPrompts": [
+    {
+      "label": "Bienvenida",
+      "screenDescription": "Welcome carousel on cream parchment with progress card 'Tu Progreso' showing 10 de 48 answered, gold-ringed medallion with brown spiral logo, serif title 'Mi Historia, Mi Legado', voice and language pills top right, 'Continuar mi Historia' button.",
+      "requiredLabels": [
+        "Minha História, Meu Legado"
+     ],
+      "prompt": "Warm heirloom mood: parchment and walnut tones with gold accents. The welcome screen that reassures an elderly user the app will help them preserve their life story for grandchildren.",
+      "screenshotTarget": "welcome"
+    },
+    {
+      "label": "Pregunta con voz",
+      "screenDescription": "Question screen with banner 'Registrando la historia y legado de María Elena García', question card in serif, Escribir/Grabar mode pills, a typed memory answer in the editor, optional photo section and gold progress bar.",
+      "requiredLabels": [
+        "Pergunta 11 de 48",
+        "Ouvir pergunta"
+      ],
+      "prompt": "Intimate, respectful mood: a large readable question card on parchment showing that answers can be typed or recorded by voice. Feel of a gentle interview with a beloved elder.",
+      "screenshotTarget": "questions"
+    },
+    {
+      "label": "Revisar respuestas",
+      "screenDescription": "Review screen titled 'Tus Respuestas' listing answered questions grouped by category with saved answers and gold accents, and a 'Crear Libro del Legado' button at the bottom.",
+      "requiredLabels": [
+        "Suas Respostas"
+      ],
+      "prompt": "Proud legacy mood: the elder sees their memories organized like a manuscript, warm serif typography, walnut and gold.",
+      "screenshotTarget": "review"
+    },
+    {
+      "label": "Libro del Legado",
+      "screenDescription": "Book creation screen headed 'Crear tu Libro del Legado' with its subtitle and the 'Resumen de tu historia' summary card (preguntas respondidas 10/48, categorías, fotos).",
+      "requiredLabels": [
+        "Criar o seu Livro do Legado"
+      ],
+      "prompt": "Celebratory heirloom mood: the promise of a finished vintage PDF book with cover, chapters and photos to hand to the family.",
+      "screenshotTarget": "book"
+    }
+  ]
+}
