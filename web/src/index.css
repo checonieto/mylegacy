@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Heirloom palette: cream parchment, walnut ink, antique gold. All HSL. */
+@layer base {
+  :root {
+    --background: 38 68% 95%; /* cream #FBF5EA */
+    --foreground: 27 26% 19%; /* ink #3D2F24 */
+
+    --card: 45 100% 98%; /* #FFFDF7 */
+    --card-foreground: 27 26% 19%;
+
+    --popover: 45 100% 98%;
+    --popover-foreground: 27 26% 19%;
+
+    --primary: 24 28% 28%; /* walnut #5C4332 */
+    --primary-foreground: 37 100% 96%; /* #FFF8EC */
+
+    --secondary: 37 56% 88%; /* parchment #F0E4D0 */
+    --secondary-foreground: 24 28% 28%;
+
+    --muted: 38 64% 90%; /* chip #F5EBD8 */
+    --muted-foreground: 35 13% 60%; /* #A89B88 */
+
+    --accent: 46 67% 47%; /* gold #C9A227 */
+    --accent-foreground: 27 26% 19%;
+
+    --gold-deep: 39 44% 43%; /* #9A7B3F */
+
+    --destructive: 11 57% 45%; /* brick #B54A32 */
+    --destructive-foreground: 37 100% 96%;
+
+    --border: 39 46% 83%; /* #E8DBC2 */
+    --input: 38 37% 76%; /* #D9C9AC */
+    --ring: 46 67% 47%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 38 68% 95%;
+    --sidebar-foreground: 27 26% 19%;
+    --sidebar-primary: 24 28% 28%;
+    --sidebar-primary-foreground: 37 100% 96%;
+    --sidebar-accent: 37 56% 88%;
+    --sidebar-accent-foreground: 24 28% 28%;
+    --sidebar-border: 39 46% 83%;
+    --sidebar-ring: 46 67% 47%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    background-image:
+      radial-gradient(1200px 600px at 50% -10%, hsl(46 67% 47% / 0.10), transparent 70%),
+      radial-gradient(900px 500px at 100% 100%, hsl(24 28% 28% / 0.06), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs font-semibold uppercase;
+    letter-spacing: 0.22em;
+    color: hsl(var(--gold-deep));
+    font-family: "Source Serif 4", Georgia, serif;
+  }
+
+  .heirloom-card {
+    @apply rounded-2xl border bg-card;
+    box-shadow:
+      0 1px 0 hsl(45 100% 100%) inset,
+      0 18px 40px -24px hsl(24 28% 28% / 0.35);
+  }
+
+  .prose-legal h2 {
+    @apply mt-10 mb-3 text-3xl font-semibold text-primary;
+  }
+
+  .prose-legal p {
+    @apply mb-4;
+  }
+
+  .prose-legal ul {
+    @apply mb-4 list-disc space-y-2 pl-6 marker:text-accent;
+  }
+
+  .prose-legal a {
+    @apply font-semibold text-primary underline decoration-accent decoration-2 underline-offset-4;
+  }
+}

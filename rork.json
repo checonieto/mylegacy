@@ -1,4 +1,5 @@
 {
+  "$schema": "https://rork.com/schema/rork.json",
   "apps": [
     {
       "name": "Expo",
@@ -12,7 +13,11 @@
       "settings": {
         "swiftSibling": false
       }
+    },
+    {
+      "name": "Living Memory Website",
+      "path": "web",
+      "framework": "web"
     }
-  ],
-  "$schema": "https://rork.com/schema/rork.json"
+  ]
 }
