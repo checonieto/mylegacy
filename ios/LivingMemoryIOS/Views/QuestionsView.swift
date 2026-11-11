@@ -5,12 +5,12 @@ struct QuestionsView: View {
     @Environment(LegacyStore.self) private var store
     @Environment(LanguageStore.self) private var languageStore
     @Environment(Router.self) private var router
+    @Environment(VoiceSettings.self) private var voiceSettings
     @Environment(\.openURL) private var openURL
 
     @State private var index = 0
     @State private var draft = ""
     @State private var mode: InputMode = .text
-    @State private var soundOn = true
     @State private var reader = QuestionReader()
     @State private var recorder = VoiceRecorder()
     @State private var photoItem: PhotosPickerItem?
@@ -145,17 +145,13 @@ struct QuestionsView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 14) {
                 GoldProgressBar(value: Double(index + 1) / Double(Question.all.count))
-                Button(action: toggleSound) {
-                    Image(systemName: soundOn ? "speaker.wave.2.fill" : "speaker.slash.fill")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(soundOn ? Palette.onDark : Palette.muted)
-                        .contentTransition(.symbolEffect(.replace))
-                        .frame(width: 44, height: 44)
-                        .background(soundOn ? AnyShapeStyle(Palette.walnutGradient) : AnyShapeStyle(Palette.card), in: .circle)
-                        .overlay { Circle().strokeBorder(soundOn ? Palette.gold.opacity(0.6) : Palette.border, lineWidth: 1.5) }
+                VoiceToggleButton(
+                    isOn: voiceSettings.isEnabled,
+                    onLabel: t.soundOn,
+                    offLabel: t.soundOff
+                ) {
+                    toggleSound()
                 }
-                .buttonStyle(PressableStyle())
-                .accessibilityLabel(soundOn ? t.soundOn : t.soundOff)
             }
             Text(t.fill(t.questionOf, ["current": index + 1, "total": Question.all.count]))
                 .font(.subheadline.weight(.semibold))
@@ -590,7 +586,7 @@ struct QuestionsView: View {
     private func loadQuestion() {
         draft = store.answers[question.id] ?? ""
         reader.stop()
-        if soundOn {
+        if voiceSettings.isEnabled {
             reader.speak(spokenText, language: language)
         }
     }
@@ -624,12 +620,12 @@ struct QuestionsView: View {
 
     private func toggleSound() {
         Haptics.tap()
-        if soundOn {
-            reader.stop()
+        voiceSettings.isEnabled.toggle()
+        if voiceSettings.isEnabled {
+            reader.speak(spokenText, language: language)
         } else {
-            reader.speak(questionText, language: language)
+            reader.stop()
         }
-        withAnimation(.snappy) { soundOn.toggle() }
     }
 
     private func toggleRecording() {

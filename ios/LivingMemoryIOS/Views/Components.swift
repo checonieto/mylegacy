@@ -61,6 +61,28 @@ struct BookEmblem: View {
     }
 }
 
+/// Speaker on/off circle used on the welcome and question screens.
+struct VoiceToggleButton: View {
+    let isOn: Bool
+    let onLabel: String
+    let offLabel: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: isOn ? "speaker.wave.2.fill" : "speaker.slash.fill")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(isOn ? Palette.onDark : Palette.muted)
+                .contentTransition(.symbolEffect(.replace))
+                .frame(width: 44, height: 44)
+                .background(isOn ? AnyShapeStyle(Palette.walnutGradient) : AnyShapeStyle(Palette.card), in: .circle)
+                .overlay { Circle().strokeBorder(isOn ? Palette.gold.opacity(0.6) : Palette.border, lineWidth: 1.5) }
+        }
+        .buttonStyle(PressableStyle())
+        .accessibilityLabel(isOn ? onLabel : offLabel)
+    }
+}
+
 /// Gold progress bar.
 struct GoldProgressBar: View {
     let value: Double

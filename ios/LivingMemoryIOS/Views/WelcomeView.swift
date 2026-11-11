@@ -4,10 +4,12 @@ struct WelcomeView: View {
     @Environment(LegacyStore.self) private var store
     @Environment(LanguageStore.self) private var languageStore
     @Environment(Router.self) private var router
+    @Environment(VoiceSettings.self) private var voiceSettings
 
     @State private var slide = 0
     @State private var showNameEntry = false
     @State private var appeared = false
+    @State private var reader = QuestionReader()
 
     private var t: Strings { languageStore.t }
 
@@ -31,13 +33,65 @@ struct WelcomeView: View {
         .toolbar(.hidden, for: .navigationBar)
         .onAppear {
             withAnimation(.spring(response: 0.7, dampingFraction: 0.8).delay(0.05)) { appeared = true }
+            // Give the entrance a moment, then read the instructions aloud.
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(0.7))
+                if !showNameEntry { readSlide() }
+            }
         }
+        .onDisappear {
+            reader.stop()
+        }
+        .onChange(of: slide) { _, _ in readSlide() }
+        .onChange(of: showNameEntry) { _, isShowing in
+            if isShowing { reader.stop() }
+        }
+        .onChange(of: voiceSettings.isEnabled) { _, enabled in
+            if enabled {
+                readSlide()
+            } else {
+                reader.stop()
+            }
+        }
+        .onChange(of: languageStore.language) { _, _ in
+            if voiceSettings.isEnabled { readSlide() }
+        }
+    }
+
+    // MARK: Voice
+
+    private var slideSpokenText: String {
+        switch slide {
+        case 0:
+            [t.welcomeTitle, t.welcomeText1, t.welcomeText2].joined(separator: " ")
+        case 1:
+            ([t.whoCanFillTitle, t.whoCanFillText] + t.bullets).joined(separator: " ")
+        default:
+            ([t.howToUseTitle] + t.steps.map { "\($0.title) \($0.text)" }).joined(separator: " ")
+        }
+    }
+
+    private func readSlide() {
+        guard voiceSettings.isEnabled, !showNameEntry else { return }
+        reader.speak(slideSpokenText, language: languageStore.language)
+    }
+
+    private func toggleVoice() {
+        Haptics.tap()
+        voiceSettings.isEnabled.toggle()
     }
 
     private var welcome: some View {
         VStack(spacing: 0) {
-            HStack {
+            HStack(spacing: 12) {
                 Spacer()
+                VoiceToggleButton(
+                    isOn: voiceSettings.isEnabled,
+                    onLabel: t.soundOn,
+                    offLabel: t.soundOff
+                ) {
+                    toggleVoice()
+                }
                 LanguageToggle()
             }
             .padding(.horizontal, 20)

@@ -11,6 +11,7 @@ import SwiftUI
 struct LivingMemoryIOSApp: App {
     @State private var store = LegacyStore()
     @State private var languageStore = LanguageStore()
+    @State private var voiceSettings = VoiceSettings()
 
     init() {
         let titleColor = UIColor(hex: 0x3D2F24)
@@ -32,6 +33,7 @@ struct LivingMemoryIOSApp: App {
             ContentView()
                 .environment(store)
                 .environment(languageStore)
+                .environment(voiceSettings)
                 .tint(Palette.walnut)
                 .preferredColorScheme(.light)
         }
