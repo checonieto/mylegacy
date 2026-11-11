@@ -86,8 +86,6 @@ struct WelcomeView: View {
     private var header: some View {
         VStack(spacing: 10) {
             BookEmblem(size: 76)
-            ElderlyCouple()
-                .padding(.top, 4)
             Text(t.title)
                 .font(.system(.largeTitle, design: .serif, weight: .bold))
                 .foregroundStyle(Palette.ink)
