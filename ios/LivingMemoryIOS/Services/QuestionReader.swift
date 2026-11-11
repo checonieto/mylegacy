@@ -96,10 +96,11 @@ extension QuestionReader: AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
 /// under Application Support so each question is generated at most once.
 enum Narrator {
     private static let model = "elevenlabs/eleven-v3"
-    /// Jade — warm, pleasant Mexican Spanish narrator; Sarah — mature, reassuring English.
+    /// Jade — warm Mexican Spanish; Sarah — mature, reassuring English; Mayla — warm Brazilian Portuguese narrator.
     private static let voices: [AppLanguage: String] = [
         .es: "lP1VZ61RLnDtOoz41b3D",
         .en: "EXAVITQu4vr4xnSDxMaL",
+        .pt: "NS7yU4WmAouJsg84X3Mg",
     ]
 
     private struct Body: Encodable {

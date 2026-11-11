@@ -9,7 +9,7 @@ struct LegacyBookRenderer {
     let answers: [Int: String]
     let photos: [Int: UIImage]
 
-    private var t: Strings { language == .es ? .es : .en }
+    private var t: Strings { language.strings }
 
     private let pageRect = CGRect(x: 0, y: 0, width: 612, height: 792)
     private let margin: CGFloat = 60
@@ -41,7 +41,13 @@ struct LegacyBookRenderer {
             .components(separatedBy: CharacterSet.alphanumerics.inverted)
             .filter { !$0.isEmpty }
             .joined(separator: "-")
-        let fileName = (language == .es ? "Libro-del-Legado" : "Legacy-Book") + (safeName.isEmpty ? "" : "-\(safeName)") + ".pdf"
+        let baseName: String
+        switch language {
+        case .es: baseName = "Libro-del-Legado"
+        case .en: baseName = "Legacy-Book"
+        case .pt: baseName = "Livro-do-Legado"
+        }
+        let fileName = baseName + (safeName.isEmpty ? "" : "-\(safeName)") + ".pdf"
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
 
         let format = UIGraphicsPDFRendererFormat()

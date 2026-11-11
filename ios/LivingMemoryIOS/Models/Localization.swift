@@ -2,10 +2,32 @@ import Foundation
 import Observation
 
 enum AppLanguage: String, CaseIterable, Identifiable {
-    case es, en
+    case es, en, pt
     var id: String { rawValue }
-    var speechCode: String { self == .es ? "es-ES" : "en-US" }
-    var locale: Locale { Locale(identifier: self == .es ? "es_ES" : "en_US") }
+
+    var speechCode: String {
+        switch self {
+        case .es: "es-ES"
+        case .en: "en-US"
+        case .pt: "pt-BR"
+        }
+    }
+
+    var locale: Locale {
+        switch self {
+        case .es: Locale(identifier: "es_ES")
+        case .en: Locale(identifier: "en_US")
+        case .pt: Locale(identifier: "pt_BR")
+        }
+    }
+
+    var strings: Strings {
+        switch self {
+        case .es: .es
+        case .en: .en
+        case .pt: .pt
+        }
+    }
 }
 
 @Observable
@@ -16,14 +38,18 @@ final class LanguageStore {
         didSet { UserDefaults.standard.set(language.rawValue, forKey: Self.key) }
     }
 
-    var t: Strings { language == .es ? .es : .en }
+    var t: Strings { language.strings }
 
     init() {
         if let stored = UserDefaults.standard.string(forKey: Self.key), let lang = AppLanguage(rawValue: stored) {
             language = lang
         } else {
             let code = Locale.preferredLanguages.first.map { String($0.prefix(2)) } ?? "es"
-            language = code == "en" ? .en : .es
+            switch code {
+            case "en": language = .en
+            case "pt": language = .pt
+            default: language = .es
+            }
         }
     }
 }
@@ -159,8 +185,8 @@ struct Strings {
         carouselSkip: "Saltar",
         carouselStart: "Comenzar",
         welcomeTitle: "Bienvenido a \u{201C}Mi Historia. Mi Legado.\u{201D}",
-        welcomeText1: "Este libro ha sido creado para ayudarte a recordar, reflexionar y compartir los momentos más importantes de tu vida. Es una forma hermosa de dejar un legado para tus hijos, nietos y futuras generaciones.",
-        welcomeText2: "Aquí no buscamos fechas exactas ni datos formales: lo que más valoramos son tus recuerdos, tus sentimientos, tus aprendizajes y todo aquello que te hace único.",
+        welcomeText1: "Esta aplicación te ayudará a recordar y compartir los momentos más importantes de tu vida. Con tus respuestas, crearé para ti un libro muy especial: tu historia, contada con tus propias palabras.",
+        welcomeText2: "Tus hijos, tus nietos y todos tus descendientes podrán conocer algún día tu historia y tu legado. No hay prisa ni respuestas equivocadas: solo tus recuerdos, contados como tú quieras.",
         whoCanFillTitle: "¿Quién puede llenarlo?",
         whoCanFillText: "Este libro puede ser completado:",
         bullets: [
@@ -280,8 +306,8 @@ struct Strings {
         carouselSkip: "Skip",
         carouselStart: "Start",
         welcomeTitle: "Welcome to \u{201C}My Story. My Legacy.\u{201D}",
-        welcomeText1: "This book has been created to help you remember, reflect, and share the most important moments of your life. It is a beautiful way to leave a legacy for your children, grandchildren, and future generations.",
-        welcomeText2: "Here we do not seek exact dates or formal data: what we value most are your memories, your feelings, your learnings, and everything that makes you unique.",
+        welcomeText1: "This app will help you remember and share the most important moments of your life. With your answers, I will create a very special book for you: your story, told in your own words.",
+        welcomeText2: "Your children, grandchildren, and all your descendants will one day get to know your story and your legacy. There is no rush and there are no wrong answers — only your memories, told exactly as you wish.",
         whoCanFillTitle: "Who can fill it out?",
         whoCanFillText: "This book can be completed:",
         bullets: [
@@ -387,5 +413,126 @@ struct Strings {
         startNewMessage: "This will delete all current answers and photos. Are you sure you want to start a new story?",
         ok: "OK",
         bookReady: "Your book is ready"
+    )
+
+    static let pt = Strings(
+        title: "Minha História, Meu Legado",
+        subtitle: "Preserve a sua história de vida para as futuras gerações",
+        namePrompt: "Esta é a história e o legado de:",
+        namePlaceholder: "Digite o nome completo",
+        nameButton: "Começar",
+        carouselTitle: "Leia as instruções",
+        carouselNext: "Próximo",
+        carouselPrevious: "Anterior",
+        carouselSkip: "Pular",
+        carouselStart: "Começar",
+        welcomeTitle: "Bem-vindo(a) a \u{201C}Minha História. Meu Legado.\u{201D}",
+        welcomeText1: "Esta aplicação vai ajudar você a lembrar e compartilhar os momentos mais importantes da sua vida. Com as suas respostas, criarei para você um livro muito especial: a sua história, contada com as suas próprias palavras.",
+        welcomeText2: "Seus filhos, netos e todos os seus descendentes vão poder conhecer um dia a sua história e o seu legado. Não há pressa nem respostas erradas — apenas as suas memórias, contadas do jeito que você quiser.",
+        whoCanFillTitle: "Quem pode preencher?",
+        whoCanFillText: "Este livro pode ser preenchido:",
+        bullets: [
+            "Por você mesmo, no seu próprio ritmo e com calma.",
+            "Com a ajuda de um familiar, como um filho, neto ou sobrinho, que faça as perguntas e anote as suas respostas.",
+            "Durante uma conversa gravada, para depois escrever as respostas com mais detalhes.",
+        ],
+        howToUseTitle: "Como se usa?",
+        steps: [
+            ("Leia as perguntas com calma.", "Cada uma foi criada para convidar você a lembrar e contar uma história. Não existem respostas certas ou erradas."),
+            ("Escreva com liberdade.", "Use os espaços abaixo de cada pergunta para escrever o que lembrar. Você pode escrever muito ou pouco, como quiser."),
+            ("Se não lembrar de algo, siga para a próxima.", "Não se preocupe se não puder responder todas. Volte depois, se quiser."),
+            ("Você pode adicionar fotos a cada pergunta.", "Cada pergunta permite adicionar uma foto opcional relacionada à sua resposta para enriquecer a sua história."),
+            ("Não há pressa.", "Você pode preencher ao longo de vários dias, semanas ou meses. O importante é que reflita a sua sabedoria e a sua história."),
+            ("No final, imprima o seu livro em PDF.", "Depois de responder às perguntas, você poderá gerar um belo livro em PDF com design vintage para compartilhar com a sua família."),
+        ],
+        progressTitle: "Seu Progresso",
+        progressText: "{{answered}} de {{total}} perguntas respondidas",
+        continueButton: "Continuar minha História",
+        footerQuote: "\u{201C}As histórias de vida são o presente mais valioso que podemos deixar\u{201D}",
+        navQuestions: "Sua História",
+        navReview: "Revisar Respostas",
+        navBook: "Livro do Legado",
+        recordingFor: "Registrando a história e o legado de",
+        questionOf: "Pergunta {{current}} de {{total}}",
+        questionLabel: "Pergunta {{number}}",
+        writeMode: "Escrever",
+        recordMode: "Gravar",
+        placeholder: "Escreva a sua resposta aqui...",
+        voicePlaceholder: "A sua resposta aparecerá aqui depois de gravar...",
+        stop: "Parar",
+        recordPrompt: "Toque para gravar",
+        recordingNow: "Gravando… toque para parar",
+        transcribing: "Transcrevendo...",
+        saveButton: "Salvar resposta",
+        saved: "Salvo",
+        photoTitle: "Foto opcional",
+        photoSubtitle: "Você pode adicionar uma foto relacionada a esta pergunta",
+        addPhoto: "Adicionar foto",
+        changePhoto: "Alterar",
+        quickNav: "Navegação rápida",
+        previous: "Anterior",
+        next: "Próxima",
+        finish: "Finalizar",
+        finishedTitle: "Parabéns!",
+        finishedMessage: "Você respondeu todas as perguntas. Deseja revisar as suas respostas?",
+        stayHere: "Ficar aqui",
+        viewAnswers: "Ver respostas",
+        removePhotoTitle: "Excluir foto",
+        removePhotoMessage: "Tem certeza de que deseja excluir esta foto?",
+        cancel: "Cancelar",
+        remove: "Excluir",
+        micPermissionTitle: "Permissão necessária",
+        micPermissionMessage: "Precisamos de acesso ao microfone para gravar a sua voz.",
+        openSettings: "Abrir Ajustes",
+        recordError: "Não foi possível iniciar a gravação",
+        transcribeError: "Não foi possível processar a gravação",
+        photoError: "Não foi possível adicionar a foto",
+        listen: "Ouvir pergunta",
+        stopListening: "Parar",
+        soundOn: "Voz ativada",
+        soundOff: "Voz desativada",
+        hint: "Você pode escrever a sua resposta, gravá-la com a sua voz ou adicionar uma foto — como preferir.",
+        reviewTitle: "Suas Respostas",
+        reviewSubtitle: "{{answered}} de {{total}} perguntas respondidas",
+        noAnswer: "Sem resposta",
+        photoLabel: "Foto anexada",
+        save: "Salvar",
+        emptyState: "Você ainda não respondeu nenhuma pergunta",
+        startNow: "Começar agora",
+        generateBookButton: "Criar Livro do Legado",
+        placeholderEdit: "Escreva a sua resposta...",
+        edit: "Editar",
+        pdfTitle: "Criar o seu Livro do Legado",
+        pdfSubtitle: "Um documento PDF com todas as suas respostas, criado com carinho para preservar a sua história",
+        summaryTitle: "Resumo da sua história",
+        questionsAnswered: "Perguntas respondidas:",
+        categoriesCompleted: "Categorias concluídas:",
+        photosIncluded: "Fotos incluídas:",
+        previewTitle: "O que o seu livro incluirá?",
+        previews: [
+            "Capa personalizada com a data",
+            "Todas as suas respostas organizadas por categorias",
+            "Design vintage acolhedor e nostálgico",
+            "Tipografia clara e fácil de ler",
+        ],
+        generatePDF: "Gerar Livro em PDF",
+        generating: "Gerando...",
+        share: "Compartilhar",
+        print: "Imprimir",
+        regenerate: "Gerar PDF novamente",
+        back: "Voltar às respostas",
+        successTitle: "Livro criado!",
+        successMessage: "O seu Livro do Legado foi gerado com sucesso.",
+        errorTitle: "Erro",
+        errorMessage: "Não foi possível gerar o PDF. Tente novamente, por favor.",
+        noAnswersTitle: "Sem respostas",
+        noAnswersMessage: "Você precisa responder a pelo menos uma pergunta para gerar o seu Livro do Legado.",
+        incompleteTitle: "Perguntas sem responder",
+        incompleteMessage: "Você respondeu {{answered}} de {{total}} perguntas. Deseja continuar e gerar o livro com as respostas atuais?",
+        startNewButton: "Começar Nova História",
+        startNewTitle: "Nova história",
+        startNewMessage: "Isso apagará todas as respostas e fotos atuais. Tem certeza de que deseja começar uma nova história?",
+        ok: "OK",
+        bookReady: "O seu livro está pronto"
     )
 }
