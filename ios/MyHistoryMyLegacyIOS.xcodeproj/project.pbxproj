@@ -12,37 +12,37 @@
 			containerPortal = 105FC5722E9EAD3100EA8BCF /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 105FC5792E9EAD3100EA8BCF;
-			remoteInfo = LivingMemoryIOS;
+			remoteInfo = MyHistoryMyLegacyIOS;
 		};
 		105FC5942E9EAD3200EA8BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 105FC5722E9EAD3100EA8BCF /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 105FC5792E9EAD3100EA8BCF;
-			remoteInfo = LivingMemoryIOS;
+			remoteInfo = MyHistoryMyLegacyIOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		105FC57A2E9EAD3100EA8BCF /* LivingMemoryIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivingMemoryIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		105FC5892E9EAD3200EA8BCF /* LivingMemoryIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LivingMemoryIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		105FC5932E9EAD3200EA8BCF /* LivingMemoryIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LivingMemoryIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		105FC57A2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHistoryMyLegacyIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		105FC5892E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyHistoryMyLegacyIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		105FC5932E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyHistoryMyLegacyIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		105FC57C2E9EAD3100EA8BCF /* LivingMemoryIOS */ = {
+		105FC57C2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LivingMemoryIOS;
+			path = MyHistoryMyLegacyIOS;
 			sourceTree = "<group>";
 		};
-		105FC58C2E9EAD3200EA8BCF /* LivingMemoryIOSTests */ = {
+		105FC58C2E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LivingMemoryIOSTests;
+			path = MyHistoryMyLegacyIOSTests;
 			sourceTree = "<group>";
 		};
-		105FC5962E9EAD3200EA8BCF /* LivingMemoryIOSUITests */ = {
+		105FC5962E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LivingMemoryIOSUITests;
+			path = MyHistoryMyLegacyIOSUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		105FC5712E9EAD3100EA8BCF = {
 			isa = PBXGroup;
 			children = (
-				105FC57C2E9EAD3100EA8BCF /* LivingMemoryIOS */,
-				105FC58C2E9EAD3200EA8BCF /* LivingMemoryIOSTests */,
-				105FC5962E9EAD3200EA8BCF /* LivingMemoryIOSUITests */,
+				105FC57C2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */,
+				105FC58C2E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */,
+				105FC5962E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */,
 				105FC57B2E9EAD3100EA8BCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		105FC57B2E9EAD3100EA8BCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				105FC57A2E9EAD3100EA8BCF /* LivingMemoryIOS.app */,
-				105FC5892E9EAD3200EA8BCF /* LivingMemoryIOSTests.xctest */,
-				105FC5932E9EAD3200EA8BCF /* LivingMemoryIOSUITests.xctest */,
+				105FC57A2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS.app */,
+				105FC5892E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests.xctest */,
+				105FC5932E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		105FC5792E9EAD3100EA8BCF /* LivingMemoryIOS */ = {
+		105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "LivingMemoryIOS" */;
+			buildConfigurationList = 105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOS" */;
 			buildPhases = (
 				105FC5762E9EAD3100EA8BCF /* Sources */,
 				105FC5772E9EAD3100EA8BCF /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				105FC57C2E9EAD3100EA8BCF /* LivingMemoryIOS */,
+				105FC57C2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */,
 			);
-			name = LivingMemoryIOS;
+			name = MyHistoryMyLegacyIOS;
 			packageProductDependencies = (
 			);
-			productName = LivingMemoryIOS;
-			productReference = 105FC57A2E9EAD3100EA8BCF /* LivingMemoryIOS.app */;
+			productName = MyHistoryMyLegacyIOS;
+			productReference = 105FC57A2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		105FC5882E9EAD3200EA8BCF /* LivingMemoryIOSTests */ = {
+		105FC5882E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "LivingMemoryIOSTests" */;
+			buildConfigurationList = 105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSTests" */;
 			buildPhases = (
 				105FC5852E9EAD3200EA8BCF /* Sources */,
 				105FC5862E9EAD3200EA8BCF /* Frameworks */,
@@ -131,18 +131,18 @@
 				105FC58B2E9EAD3200EA8BCF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				105FC58C2E9EAD3200EA8BCF /* LivingMemoryIOSTests */,
+				105FC58C2E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */,
 			);
-			name = LivingMemoryIOSTests;
+			name = MyHistoryMyLegacyIOSTests;
 			packageProductDependencies = (
 			);
-			productName = LivingMemoryIOSTests;
-			productReference = 105FC5892E9EAD3200EA8BCF /* LivingMemoryIOSTests.xctest */;
+			productName = MyHistoryMyLegacyIOSTests;
+			productReference = 105FC5892E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		105FC5922E9EAD3200EA8BCF /* LivingMemoryIOSUITests */ = {
+		105FC5922E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "LivingMemoryIOSUITests" */;
+			buildConfigurationList = 105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSUITests" */;
 			buildPhases = (
 				105FC58F2E9EAD3200EA8BCF /* Sources */,
 				105FC5902E9EAD3200EA8BCF /* Frameworks */,
@@ -154,13 +154,13 @@
 				105FC5952E9EAD3200EA8BCF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				105FC5962E9EAD3200EA8BCF /* LivingMemoryIOSUITests */,
+				105FC5962E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */,
 			);
-			name = LivingMemoryIOSUITests;
+			name = MyHistoryMyLegacyIOSUITests;
 			packageProductDependencies = (
 			);
-			productName = LivingMemoryIOSUITests;
-			productReference = 105FC5932E9EAD3200EA8BCF /* LivingMemoryIOSUITests.xctest */;
+			productName = MyHistoryMyLegacyIOSUITests;
+			productReference = 105FC5932E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "LivingMemoryIOS" */;
+			buildConfigurationList = 105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "MyHistoryMyLegacyIOS" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				105FC5792E9EAD3100EA8BCF /* LivingMemoryIOS */,
-				105FC5882E9EAD3200EA8BCF /* LivingMemoryIOSTests */,
-				105FC5922E9EAD3200EA8BCF /* LivingMemoryIOSUITests */,
+				105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */,
+				105FC5882E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */,
+				105FC5922E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		105FC58B2E9EAD3200EA8BCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 105FC5792E9EAD3100EA8BCF /* LivingMemoryIOS */;
+			target = 105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */;
 			targetProxy = 105FC58A2E9EAD3200EA8BCF /* PBXContainerItemProxy */;
 		};
 		105FC5952E9EAD3200EA8BCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 105FC5792E9EAD3100EA8BCF /* LivingMemoryIOS */;
+			target = 105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */;
 			targetProxy = 105FC5942E9EAD3200EA8BCF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -401,7 +401,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_CFBundleDisplayName = "Living Memory";
+				INFOPLIST_KEY_CFBundleDisplayName = "My History, My Legacy iOS";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Living Memory uses the microphone so you can record your answers with your voice. / Living Memory usa el micrófono para grabar tus respuestas con tu voz.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -436,7 +436,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_CFBundleDisplayName = "Living Memory";
+				INFOPLIST_KEY_CFBundleDisplayName = "My History, My Legacy iOS";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Living Memory uses the microphone so you can record your answers with your voice. / Living Memory usa el micrófono para grabar tus respuestas con tu voz.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -470,7 +470,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.rork.xoa18lsfhdwhqm45gr0ar.tests";
+				PRODUCT_BUNDLE_IDENTIFIER = app.rork.xoa18lsfhdwhqm45gr0ar.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -478,7 +478,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LivingMemoryIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LivingMemoryIOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyHistoryMyLegacyIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyHistoryMyLegacyIOS";
 			};
 			name = Debug;
 		};
@@ -492,7 +492,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.rork.xoa18lsfhdwhqm45gr0ar.tests";
+				PRODUCT_BUNDLE_IDENTIFIER = app.rork.xoa18lsfhdwhqm45gr0ar.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -500,7 +500,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LivingMemoryIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LivingMemoryIOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyHistoryMyLegacyIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyHistoryMyLegacyIOS";
 			};
 			name = Release;
 		};
@@ -512,7 +512,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.rork.xoa18lsfhdwhqm45gr0ar.uitests";
+				PRODUCT_BUNDLE_IDENTIFIER = app.rork.xoa18lsfhdwhqm45gr0ar.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -520,7 +520,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LivingMemoryIOS;
+				TEST_TARGET_NAME = MyHistoryMyLegacyIOS;
 			};
 			name = Debug;
 		};
@@ -532,7 +532,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.rork.xoa18lsfhdwhqm45gr0ar.uitests";
+				PRODUCT_BUNDLE_IDENTIFIER = app.rork.xoa18lsfhdwhqm45gr0ar.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -540,14 +540,14 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LivingMemoryIOS;
+				TEST_TARGET_NAME = MyHistoryMyLegacyIOS;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "LivingMemoryIOS" */ = {
+		105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "MyHistoryMyLegacyIOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC59B2E9EAD3200EA8BCF /* Debug */,
@@ -556,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "LivingMemoryIOS" */ = {
+		105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC59E2E9EAD3200EA8BCF /* Debug */,
@@ -565,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "LivingMemoryIOSTests" */ = {
+		105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC5A12E9EAD3200EA8BCF /* Debug */,
@@ -574,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "LivingMemoryIOSUITests" */ = {
+		105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC5A42E9EAD3200EA8BCF /* Debug */,

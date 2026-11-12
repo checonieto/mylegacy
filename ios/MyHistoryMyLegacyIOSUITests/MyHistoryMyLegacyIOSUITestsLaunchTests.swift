@@ -1,13 +1,13 @@
 //
-//  LivingMemoryIOSUITestsLaunchTests.swift
-//  LivingMemoryIOSUITests
+//  MyHistoryMyLegacyIOSUITestsLaunchTests.swift
+//  MyHistoryMyLegacyIOSUITests
 //
 //  Created by Rork on November 9, 2026.
 //
 
 import XCTest
 
-final class LivingMemoryIOSUITestsLaunchTests: XCTestCase {
+final class MyHistoryMyLegacyIOSUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

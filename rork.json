@@ -7,11 +7,12 @@
       "framework": "react-native"
     },
     {
-      "name": "Living Memory iOS",
+      "name": "My History, My Legacy iOS",
       "path": "ios",
       "framework": "swift",
       "settings": {
-        "swiftSibling": false
+        "swiftSibling": false,
+        "displayName": "My History, My Legacy iOS"
       }
     },
     {

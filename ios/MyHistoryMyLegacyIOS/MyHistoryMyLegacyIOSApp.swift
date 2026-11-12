@@ -1,6 +1,6 @@
 //
-//  LivingMemoryIOSApp.swift
-//  LivingMemoryIOS
+//  MyHistoryMyLegacyIOSApp.swift
+//  MyHistoryMyLegacyIOS
 //
 //  Created by Rork on November 9, 2026.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct LivingMemoryIOSApp: App {
+struct MyHistoryMyLegacyIOSApp: App {
     @State private var store: LegacyStore = {
         #if DEBUG && targetEnvironment(simulator)
         ScreenshotMode.seedIfNeeded()
