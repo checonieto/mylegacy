@@ -45,13 +45,13 @@ Disponible en español, inglés y portugués.
 El regalo más valioso no se compra: se cuenta. Comienza tu historia hoy.""",
     },
     "en-US": {
-        "name": "Mi Historia, Mi Legado",
+        "name": "My Story, My Legacy",
         "subtitle": "Save your life story",
         "keywords": "memories,grandparents,family,biography,legacy,memoir,voice journal,seniors,autobiography,heritage",
         "promotionalText": "Give your family the story of your life: 48 guided questions, voice-recorded answers, and a PDF Legacy Book.",
         "description": """Would you like to leave your family the story of your life, told in your own words?
 
-Living Memory — Mi Historia, Mi Legado guides you, step by step, with warm and simple questions so you can write down your memories without effort. At the end, it gives you a PDF Legacy Book, ready to print and share.
+Living Memory — My Story, My Legacy guides you, step by step, with warm and simple questions so you can write down your memories without effort. At the end, it gives you a PDF Legacy Book, ready to print and share.
 
 HOW IT WORKS
 
