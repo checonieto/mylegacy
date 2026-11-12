@@ -94,7 +94,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground">© 2026 Living Memory</p>
+          <p className="text-xs text-muted-foreground">© 2026 {t.appName}</p>
         </div>
       </footer>
     </div>
