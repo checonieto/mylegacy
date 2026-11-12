@@ -7,12 +7,12 @@
       "framework": "react-native"
     },
     {
-      "name": "My History, My Legacy iOS",
+      "name": "My Story, My Legacy iOS",
       "path": "ios",
       "framework": "swift",
       "settings": {
-        "swiftSibling": false,
-        "displayName": "My History, My Legacy iOS"
+        "displayName": "My Story, My Legacy",
+        "swiftSibling": false
       }
     },
     {

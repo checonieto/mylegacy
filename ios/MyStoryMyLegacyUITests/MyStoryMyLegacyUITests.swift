@@ -1,13 +1,13 @@
 //
-//  MyHistoryMyLegacyIOSUITests.swift
-//  MyHistoryMyLegacyIOSUITests
+//  MyStoryMyLegacyUITests.swift
+//  MyStoryMyLegacyUITests
 //
 //  Created by Rork on November 9, 2026.
 //
 
 import XCTest
 
-final class MyHistoryMyLegacyIOSUITests: XCTestCase {
+final class MyStoryMyLegacyUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

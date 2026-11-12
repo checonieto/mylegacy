@@ -12,37 +12,37 @@
 			containerPortal = 105FC5722E9EAD3100EA8BCF /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 105FC5792E9EAD3100EA8BCF;
-			remoteInfo = MyHistoryMyLegacyIOS;
+			remoteInfo = MyStoryMyLegacy;
 		};
 		105FC5942E9EAD3200EA8BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 105FC5722E9EAD3100EA8BCF /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 105FC5792E9EAD3100EA8BCF;
-			remoteInfo = MyHistoryMyLegacyIOS;
+			remoteInfo = MyStoryMyLegacy;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		105FC57A2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHistoryMyLegacyIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		105FC5892E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyHistoryMyLegacyIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		105FC5932E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyHistoryMyLegacyIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		105FC57A2E9EAD3100EA8BCF /* MyStoryMyLegacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyStoryMyLegacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		105FC5892E9EAD3200EA8BCF /* MyStoryMyLegacyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyStoryMyLegacyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		105FC5932E9EAD3200EA8BCF /* MyStoryMyLegacyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyStoryMyLegacyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		105FC57C2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */ = {
+		105FC57C2E9EAD3100EA8BCF /* MyStoryMyLegacy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MyHistoryMyLegacyIOS;
+			path = MyStoryMyLegacy;
 			sourceTree = "<group>";
 		};
-		105FC58C2E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */ = {
+		105FC58C2E9EAD3200EA8BCF /* MyStoryMyLegacyTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MyHistoryMyLegacyIOSTests;
+			path = MyStoryMyLegacyTests;
 			sourceTree = "<group>";
 		};
-		105FC5962E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */ = {
+		105FC5962E9EAD3200EA8BCF /* MyStoryMyLegacyUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MyHistoryMyLegacyIOSUITests;
+			path = MyStoryMyLegacyUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		105FC5712E9EAD3100EA8BCF = {
 			isa = PBXGroup;
 			children = (
-				105FC57C2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */,
-				105FC58C2E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */,
-				105FC5962E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */,
+				105FC57C2E9EAD3100EA8BCF /* MyStoryMyLegacy */,
+				105FC58C2E9EAD3200EA8BCF /* MyStoryMyLegacyTests */,
+				105FC5962E9EAD3200EA8BCF /* MyStoryMyLegacyUITests */,
 				105FC57B2E9EAD3100EA8BCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		105FC57B2E9EAD3100EA8BCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				105FC57A2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS.app */,
-				105FC5892E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests.xctest */,
-				105FC5932E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests.xctest */,
+				105FC57A2E9EAD3100EA8BCF /* MyStoryMyLegacy.app */,
+				105FC5892E9EAD3200EA8BCF /* MyStoryMyLegacyTests.xctest */,
+				105FC5932E9EAD3200EA8BCF /* MyStoryMyLegacyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */ = {
+		105FC5792E9EAD3100EA8BCF /* MyStoryMyLegacy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOS" */;
+			buildConfigurationList = 105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyStoryMyLegacy" */;
 			buildPhases = (
 				105FC5762E9EAD3100EA8BCF /* Sources */,
 				105FC5772E9EAD3100EA8BCF /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				105FC57C2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */,
+				105FC57C2E9EAD3100EA8BCF /* MyStoryMyLegacy */,
 			);
-			name = MyHistoryMyLegacyIOS;
+			name = MyStoryMyLegacy;
 			packageProductDependencies = (
 			);
-			productName = MyHistoryMyLegacyIOS;
-			productReference = 105FC57A2E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS.app */;
+			productName = MyStoryMyLegacy;
+			productReference = 105FC57A2E9EAD3100EA8BCF /* MyStoryMyLegacy.app */;
 			productType = "com.apple.product-type.application";
 		};
-		105FC5882E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */ = {
+		105FC5882E9EAD3200EA8BCF /* MyStoryMyLegacyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSTests" */;
+			buildConfigurationList = 105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyStoryMyLegacyTests" */;
 			buildPhases = (
 				105FC5852E9EAD3200EA8BCF /* Sources */,
 				105FC5862E9EAD3200EA8BCF /* Frameworks */,
@@ -131,18 +131,18 @@
 				105FC58B2E9EAD3200EA8BCF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				105FC58C2E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */,
+				105FC58C2E9EAD3200EA8BCF /* MyStoryMyLegacyTests */,
 			);
-			name = MyHistoryMyLegacyIOSTests;
+			name = MyStoryMyLegacyTests;
 			packageProductDependencies = (
 			);
-			productName = MyHistoryMyLegacyIOSTests;
-			productReference = 105FC5892E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests.xctest */;
+			productName = MyStoryMyLegacyTests;
+			productReference = 105FC5892E9EAD3200EA8BCF /* MyStoryMyLegacyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		105FC5922E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */ = {
+		105FC5922E9EAD3200EA8BCF /* MyStoryMyLegacyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSUITests" */;
+			buildConfigurationList = 105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyStoryMyLegacyUITests" */;
 			buildPhases = (
 				105FC58F2E9EAD3200EA8BCF /* Sources */,
 				105FC5902E9EAD3200EA8BCF /* Frameworks */,
@@ -154,13 +154,13 @@
 				105FC5952E9EAD3200EA8BCF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				105FC5962E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */,
+				105FC5962E9EAD3200EA8BCF /* MyStoryMyLegacyUITests */,
 			);
-			name = MyHistoryMyLegacyIOSUITests;
+			name = MyStoryMyLegacyUITests;
 			packageProductDependencies = (
 			);
-			productName = MyHistoryMyLegacyIOSUITests;
-			productReference = 105FC5932E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests.xctest */;
+			productName = MyStoryMyLegacyUITests;
+			productReference = 105FC5932E9EAD3200EA8BCF /* MyStoryMyLegacyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "MyHistoryMyLegacyIOS" */;
+			buildConfigurationList = 105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "MyStoryMyLegacy" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */,
-				105FC5882E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSTests */,
-				105FC5922E9EAD3200EA8BCF /* MyHistoryMyLegacyIOSUITests */,
+				105FC5792E9EAD3100EA8BCF /* MyStoryMyLegacy */,
+				105FC5882E9EAD3200EA8BCF /* MyStoryMyLegacyTests */,
+				105FC5922E9EAD3200EA8BCF /* MyStoryMyLegacyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		105FC58B2E9EAD3200EA8BCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */;
+			target = 105FC5792E9EAD3100EA8BCF /* MyStoryMyLegacy */;
 			targetProxy = 105FC58A2E9EAD3200EA8BCF /* PBXContainerItemProxy */;
 		};
 		105FC5952E9EAD3200EA8BCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 105FC5792E9EAD3100EA8BCF /* MyHistoryMyLegacyIOS */;
+			target = 105FC5792E9EAD3100EA8BCF /* MyStoryMyLegacy */;
 			targetProxy = 105FC5942E9EAD3200EA8BCF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -401,7 +401,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_CFBundleDisplayName = "My History, My Legacy iOS";
+				INFOPLIST_KEY_CFBundleDisplayName = "My Story, My Legacy";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Living Memory uses the microphone so you can record your answers with your voice. / Living Memory usa el micrófono para grabar tus respuestas con tu voz.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -436,7 +436,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_CFBundleDisplayName = "My History, My Legacy iOS";
+				INFOPLIST_KEY_CFBundleDisplayName = "My Story, My Legacy";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Living Memory uses the microphone so you can record your answers with your voice. / Living Memory usa el micrófono para grabar tus respuestas con tu voz.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -478,7 +478,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyHistoryMyLegacyIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyHistoryMyLegacyIOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStoryMyLegacy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyStoryMyLegacy";
 			};
 			name = Debug;
 		};
@@ -500,7 +500,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyHistoryMyLegacyIOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyHistoryMyLegacyIOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStoryMyLegacy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyStoryMyLegacy";
 			};
 			name = Release;
 		};
@@ -520,7 +520,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MyHistoryMyLegacyIOS;
+				TEST_TARGET_NAME = MyStoryMyLegacy;
 			};
 			name = Debug;
 		};
@@ -540,14 +540,14 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MyHistoryMyLegacyIOS;
+				TEST_TARGET_NAME = MyStoryMyLegacy;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "MyHistoryMyLegacyIOS" */ = {
+		105FC5752E9EAD3100EA8BCF /* Build configuration list for PBXProject "MyStoryMyLegacy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC59B2E9EAD3200EA8BCF /* Debug */,
@@ -556,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOS" */ = {
+		105FC59D2E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyStoryMyLegacy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC59E2E9EAD3200EA8BCF /* Debug */,
@@ -565,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSTests" */ = {
+		105FC5A02E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyStoryMyLegacyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC5A12E9EAD3200EA8BCF /* Debug */,
@@ -574,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyHistoryMyLegacyIOSUITests" */ = {
+		105FC5A32E9EAD3200EA8BCF /* Build configuration list for PBXNativeTarget "MyStoryMyLegacyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				105FC5A42E9EAD3200EA8BCF /* Debug */,

@@ -1,6 +1,6 @@
 //
-//  MyHistoryMyLegacyIOSApp.swift
-//  MyHistoryMyLegacyIOS
+//  MyStoryMyLegacyApp.swift
+//  MyStoryMyLegacy
 //
 //  Created by Rork on November 9, 2026.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct MyHistoryMyLegacyIOSApp: App {
+struct MyStoryMyLegacyApp: App {
     @State private var store: LegacyStore = {
         #if DEBUG && targetEnvironment(simulator)
         ScreenshotMode.seedIfNeeded()

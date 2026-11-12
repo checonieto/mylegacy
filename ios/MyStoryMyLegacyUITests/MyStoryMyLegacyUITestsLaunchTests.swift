@@ -1,13 +1,13 @@
 //
-//  MyHistoryMyLegacyIOSUITestsLaunchTests.swift
-//  MyHistoryMyLegacyIOSUITests
+//  MyStoryMyLegacyUITestsLaunchTests.swift
+//  MyStoryMyLegacyUITests
 //
 //  Created by Rork on November 9, 2026.
 //
 
 import XCTest
 
-final class MyHistoryMyLegacyIOSUITestsLaunchTests: XCTestCase {
+final class MyStoryMyLegacyUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

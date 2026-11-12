@@ -14,9 +14,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "105FC5792E9EAD3100EA8BCF"
-               BuildableName = "MyHistoryMyLegacyIOS.app"
-               BlueprintName = "MyHistoryMyLegacyIOS"
-               ReferencedContainer = "container:MyHistoryMyLegacyIOS.xcodeproj">
+               BuildableName = "MyStoryMyLegacy.app"
+               BlueprintName = "MyStoryMyLegacy"
+               ReferencedContainer = "container:MyStoryMyLegacy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "105FC5792E9EAD3100EA8BCF"
-            BuildableName = "MyHistoryMyLegacyIOS.app"
-            BlueprintName = "MyHistoryMyLegacyIOS"
-            ReferencedContainer = "container:MyHistoryMyLegacyIOS.xcodeproj">
+            BuildableName = "MyStoryMyLegacy.app"
+            BlueprintName = "MyStoryMyLegacy"
+            ReferencedContainer = "container:MyStoryMyLegacy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "105FC5792E9EAD3100EA8BCF"
-            BuildableName = "MyHistoryMyLegacyIOS.app"
-            BlueprintName = "MyHistoryMyLegacyIOS"
-            ReferencedContainer = "container:MyHistoryMyLegacyIOS.xcodeproj">
+            BuildableName = "MyStoryMyLegacy.app"
+            BlueprintName = "MyStoryMyLegacy"
+            ReferencedContainer = "container:MyStoryMyLegacy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
