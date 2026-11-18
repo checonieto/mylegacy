@@ -44,12 +44,15 @@ final class VoiceRecorder {
             throw RecorderError.couldNotStart
         }
 
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("answer-\(UUID().uuidString).m4a")
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("answer-\(UUID().uuidString).wav")
+        // The transcription service rejects AAC/m4a uploads, so record uncompressed PCM WAV.
         let settings: [String: Any] = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 44_100,
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
+            AVSampleRateKey: 16_000,
             AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+            AVLinearPCMBitDepthKey: 16,
+            AVLinearPCMIsFloatKey: false,
+            AVLinearPCMIsBigEndianKey: false,
         ]
 
         do {
@@ -139,7 +142,7 @@ enum Transcriber {
         request.setValue("microsoft/mai-transcribe-2", forHTTPHeaderField: "ai-model-id")
         request.setValue("0.0.1", forHTTPHeaderField: "ai-gateway-protocol-version")
         request.httpBody = try JSONEncoder().encode(
-            Body(audio: data.base64EncodedString(), mediaType: "audio/mp4", providerOptions: nil)
+            Body(audio: data.base64EncodedString(), mediaType: "audio/wav", providerOptions: nil)
         )
 
         let (responseData, response) = try await URLSession.shared.data(for: request)
