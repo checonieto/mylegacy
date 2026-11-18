@@ -96,6 +96,9 @@ struct Strings {
     let recordPrompt: String
     let recordingNow: String
     let transcribing: String
+    let chunkPause: String
+    let chunkContinue: String
+    let chunkFinish: String
     let saveButton: String
     let saved: String
     let photoTitle: String
@@ -221,6 +224,9 @@ struct Strings {
         recordPrompt: "Toca para grabar",
         recordingNow: "Grabando… toca para detener",
         transcribing: "Transcribiendo...",
+        chunkPause: "Un momento, déjame anotar esta parte y luego continuamos.",
+        chunkContinue: "Listo, ya puedes continuar.",
+        chunkFinish: "Terminar aquí",
         saveButton: "Guardar respuesta",
         saved: "Guardado",
         photoTitle: "Foto opcional",
@@ -342,6 +348,9 @@ struct Strings {
         recordPrompt: "Tap to record",
         recordingNow: "Recording… tap to stop",
         transcribing: "Transcribing...",
+        chunkPause: "One moment, let me write this part down and then we'll continue.",
+        chunkContinue: "All set, you can continue now.",
+        chunkFinish: "Finish here",
         saveButton: "Save answer",
         saved: "Saved",
         photoTitle: "Optional photo",
@@ -463,6 +472,9 @@ struct Strings {
         recordPrompt: "Toque para gravar",
         recordingNow: "Gravando… toque para parar",
         transcribing: "Transcrevendo...",
+        chunkPause: "Um momento, deixe-me anotar esta parte e depois continuamos.",
+        chunkContinue: "Pronto, você já pode continuar.",
+        chunkFinish: "Terminar aqui",
         saveButton: "Salvar resposta",
         saved: "Salvo",
         photoTitle: "Foto opcional",

@@ -35,6 +35,15 @@ final class QuestionReader: NSObject {
         }
     }
 
+    /// Speaks the text and returns once it has finished (or after a safety timeout).
+    func speakAndWait(_ text: String, language: AppLanguage, timeout: TimeInterval = 25) async {
+        speak(text, language: language)
+        let deadline = Date().addingTimeInterval(timeout)
+        while isSpeaking, Date() < deadline, !Task.isCancelled {
+            try? await Task.sleep(for: .milliseconds(150))
+        }
+    }
+
     func stop() {
         loadTask?.cancel()
         loadTask = nil

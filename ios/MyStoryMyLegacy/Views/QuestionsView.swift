@@ -20,6 +20,14 @@ struct QuestionsView: View {
     @State private var errorMessage: String?
     @State private var savedPulse = false
     @State private var didAppear = false
+    @State private var chunkNotice: String?
+    @State private var chunkTask: Task<Void, Never>?
+    @State private var chunkOffset: TimeInterval = 0
+    @State private var chunkStopRequested = false
+
+    /// Long answers are recorded in pieces so each upload stays under the
+    /// transcription service's size limit (about 105 seconds of audio).
+    private let chunkLength: TimeInterval = 90
     @FocusState private var editorFocused: Bool
 
     enum InputMode { case text, voice }
@@ -100,8 +108,13 @@ struct QuestionsView: View {
         }
         .onDisappear {
             reader.stop()
-            if recorder.phase == .recording { recorder.cancel() }
+            endVoiceSession()
             commitDraft()
+        }
+        .onChange(of: recorder.elapsed) { _, value in
+            if value >= chunkLength, recorder.phase == .recording, chunkTask == nil {
+                runChunkPause()
+            }
         }
         .onChange(of: index) { _, _ in loadQuestion() }
         .onChange(of: photoItem) { _, item in
@@ -319,6 +332,10 @@ struct QuestionsView: View {
 
     private var recordControl: some View {
         VStack(spacing: 14) {
+            if let chunkNotice {
+                chunkNoticeCard(chunkNotice)
+                    .transition(.scale(scale: 0.95).combined(with: .opacity))
+            } else {
             switch recorder.phase {
             case .transcribing:
                 VStack(spacing: 12) {
@@ -370,7 +387,7 @@ struct QuestionsView: View {
                 .accessibilityLabel(isRecording ? t.stop : t.recordPrompt)
 
                 if isRecording {
-                    Text(timeString(recorder.elapsed))
+                    Text(timeString(chunkOffset + recorder.elapsed))
                         .font(.system(.title3, design: .monospaced, weight: .semibold))
                         .foregroundStyle(Palette.brick)
                         .contentTransition(.numericText())
@@ -379,10 +396,59 @@ struct QuestionsView: View {
                     .font(.headline)
                     .foregroundStyle(isRecording ? Palette.brick : Palette.walnutLight)
             }
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
         .animation(.snappy, value: recorder.phase)
+        .animation(.smooth, value: chunkNotice)
+    }
+
+    private func chunkNoticeCard(_ message: String) -> some View {
+        let isContinuing = message == t.chunkContinue
+        return VStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill((isContinuing ? Palette.gold : Palette.walnut).opacity(0.14))
+                    .frame(width: 84, height: 84)
+                Image(systemName: isContinuing ? "mic.fill" : "square.and.pencil")
+                    .font(.system(size: 34, weight: .semibold))
+                    .foregroundStyle(isContinuing ? Palette.goldDeep : Palette.walnut)
+                    .symbolEffect(.pulse, isActive: !isContinuing)
+                    .contentTransition(.symbolEffect(.replace))
+            }
+            Text(message)
+                .font(.system(.title3, design: .serif, weight: .semibold))
+                .foregroundStyle(Palette.ink)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .contentTransition(.opacity)
+            if !isContinuing {
+                ProgressView()
+                    .tint(Palette.walnutLight)
+            }
+            if !chunkStopRequested {
+                Button {
+                    Haptics.tap()
+                    chunkStopRequested = true
+                    reader.stop()
+                } label: {
+                    Label(t.chunkFinish, systemImage: "stop.fill")
+                        .font(.headline)
+                        .foregroundStyle(Palette.walnutLight)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Palette.card, in: .capsule)
+                        .overlay { Capsule().strokeBorder(Palette.borderStrong, lineWidth: 1.5) }
+                }
+                .buttonStyle(PressableStyle())
+            }
+        }
+        .padding(22)
+        .frame(maxWidth: .infinity)
+        .background(Palette.chip.opacity(0.8), in: .rect(cornerRadius: 22))
+        .overlay { RoundedRectangle(cornerRadius: 22).strokeBorder(Palette.gold.opacity(0.5), lineWidth: 1.5) }
+        .accessibilityElement(children: .combine)
     }
 
     // MARK: - Photo
@@ -600,7 +666,7 @@ struct QuestionsView: View {
 
     private func goNext() {
         Haptics.tap()
-        if recorder.phase == .recording { recorder.cancel() }
+        endVoiceSession()
         commitDraft()
         if index < Question.all.count - 1 {
             withAnimation(.smooth) { index += 1 }
@@ -611,7 +677,7 @@ struct QuestionsView: View {
 
     private func goPrevious() {
         Haptics.tap()
-        if recorder.phase == .recording { recorder.cancel() }
+        endVoiceSession()
         commitDraft()
         if index > 0 {
             withAnimation(.smooth) { index -= 1 }
@@ -631,9 +697,12 @@ struct QuestionsView: View {
     private func toggleRecording() {
         switch recorder.phase {
         case .idle:
+            guard chunkTask == nil else { return }
             reader.stop()
             editorFocused = false
+            chunkOffset = 0
             Haptics.medium()
+            prewarmChunkPhrases()
             Task {
                 do {
                     try await recorder.start()
@@ -649,17 +718,129 @@ struct QuestionsView: View {
             Task {
                 do {
                     let text = try await recorder.stopAndTranscribe(language: language)
-                    guard !text.isEmpty else { return }
-                    if questionID == question.id {
-                        draft = draft.isEmpty ? text : "\(draft) \(text)"
-                        commitDraft()
-                    }
+                    chunkOffset = 0
+                    appendTranscript(text, to: questionID)
                 } catch {
+                    chunkOffset = 0
                     errorMessage = t.transcribeError
                 }
             }
         case .transcribing:
             break
+        }
+    }
+
+    /// Adds transcribed speech to the right answer, even if the person has
+    /// already moved on to another question while it was being written down.
+    private func appendTranscript(_ text: String, to questionID: Int) {
+        guard !text.isEmpty else { return }
+        if questionID == question.id {
+            draft = draft.isEmpty ? text : "\(draft) \(text)"
+            commitDraft()
+        } else {
+            let existing = store.answers[questionID]?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            store.saveAnswer(existing.isEmpty ? text : "\(existing) \(text)", for: questionID)
+        }
+    }
+
+    /// At ~1:30 the app pauses, says it is writing this part down, transcribes it,
+    /// then tells the person to continue and resumes recording on its own.
+    private func runChunkPause() {
+        let pieceLength = recorder.elapsed
+        guard let url = recorder.finishChunk() else { return }
+        let questionID = question.id
+        let lang = language
+        let pauseText = t.chunkPause
+        let continueText = t.chunkContinue
+        let speakAloud = voiceSettings.isEnabled
+
+        chunkOffset += pieceLength
+        chunkStopRequested = false
+        chunkNotice = pauseText
+        Haptics.medium()
+
+        chunkTask = Task {
+            defer { try? FileManager.default.removeItem(at: url) }
+            if speakAloud { reader.speak(pauseText, language: lang) }
+
+            var transcript: String?
+            for attempt in 0..<2 {
+                do {
+                    transcript = try await Transcriber.transcribe(fileURL: url, language: lang)
+                    break
+                } catch {
+                    if attempt == 0 { try? await Task.sleep(for: .seconds(1)) }
+                }
+            }
+
+            guard let transcript else {
+                reader.stop()
+                finishChunkSession()
+                errorMessage = t.transcribeError
+                return
+            }
+            appendTranscript(transcript, to: questionID)
+
+            // Let the "one moment" notice finish before speaking again.
+            let deadline = Date().addingTimeInterval(20)
+            while reader.isSpeaking, Date() < deadline, !chunkStopRequested {
+                try? await Task.sleep(for: .milliseconds(150))
+            }
+            guard !chunkStopRequested, questionID == question.id else {
+                finishChunkSession()
+                return
+            }
+
+            chunkNotice = continueText
+            Haptics.success()
+            if speakAloud {
+                await reader.speakAndWait(continueText, language: lang)
+            } else {
+                try? await Task.sleep(for: .seconds(1.5))
+            }
+            guard !chunkStopRequested, questionID == question.id else {
+                finishChunkSession()
+                return
+            }
+
+            do {
+                try await recorder.start()
+                Haptics.medium()
+            } catch {
+                chunkOffset = 0
+                errorMessage = t.recordError
+            }
+            chunkNotice = nil
+            chunkTask = nil
+        }
+    }
+
+    private func finishChunkSession() {
+        chunkNotice = nil
+        chunkTask = nil
+        chunkOffset = 0
+        chunkStopRequested = false
+    }
+
+    /// Stops any recording in progress. A piece that is already being written
+    /// down is still saved to its question; the session just won't resume.
+    private func endVoiceSession() {
+        if chunkTask != nil {
+            chunkStopRequested = true
+            reader.stop()
+        }
+        if recorder.phase == .recording { recorder.cancel() }
+    }
+
+    /// Caches the pause and continue phrases so they play instantly mid-answer.
+    private func prewarmChunkPhrases() {
+        guard voiceSettings.isEnabled else { return }
+        let lang = language
+        let phrases = [t.chunkPause, t.chunkContinue]
+        Task {
+            for phrase in phrases {
+                _ = try? await Narrator.speechFile(for: phrase, language: lang)
+            }
         }
     }
 

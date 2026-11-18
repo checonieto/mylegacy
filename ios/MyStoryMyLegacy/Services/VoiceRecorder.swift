@@ -93,6 +93,22 @@ final class VoiceRecorder {
         phase = .idle
     }
 
+    /// Closes the current piece of a long answer so it can be transcribed on its own.
+    /// Each piece stays well under the transcription service's upload limit.
+    /// The caller owns the returned file and should delete it after use.
+    func finishChunk() -> URL? {
+        timer?.invalidate()
+        timer = nil
+        recorder?.stop()
+        recorder = nil
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        let url = fileURL
+        fileURL = nil
+        elapsed = 0
+        phase = .idle
+        return url
+    }
+
     func stopAndTranscribe(language: AppLanguage) async throws -> String {
         timer?.invalidate()
         timer = nil
